@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using HospitalApplication.Models;
+//using System.Diagnostics;
 
 namespace HospitalApplication.Controllers
 {
@@ -16,28 +17,51 @@ namespace HospitalApplication.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: api/PostData
-        public IQueryable<Post> GetPosts()
+        // GET: api/PostData/ListPosts
+        [HttpGet]
+        public IEnumerable<PostDto> ListPosts()
         {
-            return db.Posts;
+            List<Post> Posts = db.Posts.ToList();
+            List<PostDto> PostDtos = new List<PostDto>();
+
+            Posts.ForEach(a => PostDtos.Add(new PostDto()
+            {
+                PostID = a.PostID,
+                Title = a.Title,
+                DateCreated = a.DateCreated,
+                Content = a.Content,
+                UserID = a.UserID
+            }));
+
+            return PostDtos;
         }
 
-        // GET: api/PostData/5
+        // GET: api/PostData/FindPost/5
         [ResponseType(typeof(Post))]
-        public IHttpActionResult GetPost(int id)
+        [HttpGet]
+        public IHttpActionResult FindPost(int id)
         {
-            Post post = db.Posts.Find(id);
-            if (post == null)
+            Post Post = db.Posts.Find(id);
+            PostDto PostDto = new PostDto()
+            {
+                PostID = Post.PostID,
+                Title = Post.Title,
+                DateCreated = Post.DateCreated,
+                Content = Post.Content,
+                UserID = Post.UserID
+            };
+            if (Post == null)
             {
                 return NotFound();
             }
 
-            return Ok(post);
+            return Ok(PostDto);
         }
 
-        // PUT: api/PostData/5
+        // POST: api/PostData/UpdatePost/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutPost(int id, Post post)
+        [HttpPost]
+        public IHttpActionResult UpdatePost(int id, Post post)
         {
             if (!ModelState.IsValid)
             {
@@ -70,9 +94,10 @@ namespace HospitalApplication.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/PostData
+        // POST: api/PostData/AddPost
         [ResponseType(typeof(Post))]
-        public IHttpActionResult PostPost(Post post)
+        [HttpPost]
+        public IHttpActionResult AddPost(Post post)
         {
             if (!ModelState.IsValid)
             {
@@ -85,8 +110,9 @@ namespace HospitalApplication.Controllers
             return CreatedAtRoute("DefaultApi", new { id = post.PostID }, post);
         }
 
-        // DELETE: api/PostData/5
+        // POST: api/PostData/DeletePost/5
         [ResponseType(typeof(Post))]
+        [HttpPost]
         public IHttpActionResult DeletePost(int id)
         {
             Post post = db.Posts.Find(id);

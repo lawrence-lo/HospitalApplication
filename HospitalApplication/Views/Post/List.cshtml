@@ -1,0 +1,13 @@
+﻿@model IEnumerable<HospitalApplication.Models.PostDto>
+@{
+    ViewBag.Title = "List";
+}
+
+<h2>List</h2>
+@foreach (var post in Model)
+{
+    <h2><a href="/Post/Details/@post.PostID">@post.Title</a></h2>
+    <div>DateCreated: @post.DateCreated</div>
+    <div>Content: @post.Content</div>
+    <div>UserID: @post.UserID</div>
+}

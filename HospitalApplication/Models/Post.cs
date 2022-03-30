@@ -21,4 +21,13 @@ namespace HospitalApplication.Models
         public string UserID { get; set; }
         public virtual ApplicationUser ApplicationUser { get; set; }
     }
+
+    public class PostDto
+    {
+        public int PostID { get; set; }
+        public string Title { get; set; }
+        public DateTime DateCreated { get; set; }
+        public string Content { get; set; }
+        public string UserID { get; set; }
+    }
 }
