@@ -26,6 +26,7 @@ namespace HospitalApplication.Models
         }
 
         public DbSet<Post> Posts { get; set; }
+        public DbSet<Donor> Donors { get; set; }
 
         public static ApplicationDbContext Create()
         {
