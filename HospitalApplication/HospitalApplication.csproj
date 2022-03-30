@@ -200,6 +200,10 @@
     <Compile Include="Migrations\202203300220267_posts-update.Designer.cs">
       <DependentUpon>202203300220267_posts-update.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202203301853261_Donors.cs" />
+    <Compile Include="Migrations\202203301853261_Donors.Designer.cs">
+      <DependentUpon>202203301853261_Donors.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Donor.cs" />
@@ -383,6 +387,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202203300220267_posts-update.resx">
       <DependentUpon>202203300220267_posts-update.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202203301853261_Donors.resx">
+      <DependentUpon>202203301853261_Donors.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
