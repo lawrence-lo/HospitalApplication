@@ -1,0 +1,39 @@
+﻿@model HospitalApplication.Models.ViewModels.UpdatePost
+@{
+    ViewBag.Title = "Update Post";
+}
+
+<div class="row">
+    <div class="col-sm-6 col-sm-offset-3">
+        <h2 class="text-center">Update Post</h2>
+        <form class="form-horizontal" action="/Post/Update/@Model.SelectedPost.PostID" method="POST">
+            <div style="display:none;">
+                @* Pass through the post ID *@
+                <input type="text" name="PostID" value="@Model.SelectedPost.PostID">
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 control-label" for="Title">Title</label>
+                <div class="col-sm-8">
+                    <input class="form-control" type="text" id="Title" name="Title" value="@Model.SelectedPost.Title">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 control-label" for="DateCreated">Published On</label>
+                <div class="col-sm-8">
+                    <input class="form-control" type="date" id="DateCreated" name="DateCreated" value="@Model.SelectedPost.DateCreated.ToString("yyyy-MM-dd")">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 control-label" for="Content">Content</label>
+                <div class="col-sm-8">
+                    <textarea class="form-control" id="Content" name="Content" rows="5">@Model.SelectedPost.Content</textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-4 col-sm-8">
+                    <button class="btn btn-default" type="submit">Update Post</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
