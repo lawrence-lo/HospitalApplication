@@ -28,5 +28,7 @@ namespace HospitalApplication.Models
         public decimal DonationAmount { get; set; }
         public DateTime DonationDate { get; set; }
         public string DonationDescription { get; set; }
+        public int DonorID { get; set; }
+        public string DonorName { get; set; }
     }
 }
