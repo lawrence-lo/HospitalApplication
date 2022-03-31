@@ -9,7 +9,7 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using HospitalApplication.Models;
-//using System.Diagnostics;
+using System.Diagnostics;
 
 namespace HospitalApplication.Controllers
 {
@@ -17,8 +17,18 @@ namespace HospitalApplication.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: api/PostData/ListPosts
+        /// <summary>
+        /// Returns all posts in the system.
+        /// </summary>
+        /// <returns>
+        /// HEADER: 200 (OK)
+        /// CONTENT: all posts in the database, including their associated UserIDs.
+        /// </returns>
+        /// <example>
+        /// GET: api/PostData/ListPosts
+        /// </example>
         [HttpGet]
+        [ResponseType(typeof(PostDto))]
         public IEnumerable<PostDto> ListPosts()
         {
             List<Post> Posts = db.Posts.ToList();
@@ -36,8 +46,20 @@ namespace HospitalApplication.Controllers
             return PostDtos;
         }
 
-        // GET: api/PostData/FindPost/5
-        [ResponseType(typeof(Post))]
+        /// <summary>
+        /// Returns a post in the system.
+        /// </summary>
+        /// <returns>
+        /// HEADER: 200 (OK)
+        /// CONTENT: A post in the system matching up to the post ID primary key
+        /// or
+        /// HEADER: 404 (NOT FOUND)
+        /// </returns>
+        /// <param name="id">The primary key of the post</param>
+        /// <example>
+        /// GET: api/PostData/FindPost/5
+        /// </example>
+        [ResponseType(typeof(PostDto))]
         [HttpGet]
         public IHttpActionResult FindPost(int id)
         {
@@ -58,7 +80,22 @@ namespace HospitalApplication.Controllers
             return Ok(PostDto);
         }
 
-        // POST: api/PostData/UpdatePost/5
+        /// <summary>
+        /// Updates a particular post in the system with POST Data input
+        /// </summary>
+        /// <param name="id">Represents the Post ID primary key</param>
+        /// <param name="post">JSON FORM DATA of a post</param>
+        /// <returns>
+        /// HEADER: 204 (Success, No Content Response)
+        /// or
+        /// HEADER: 400 (Bad Request)
+        /// or
+        /// HEADER: 404 (Not Found)
+        /// </returns>
+        /// <example>
+        /// POST: api/PostData/UpdatePost/5
+        /// FORM DATA: Post JSON Object
+        /// </example>
         [ResponseType(typeof(void))]
         [HttpPost]
         public IHttpActionResult UpdatePost(int id, Post post)
@@ -94,7 +131,20 @@ namespace HospitalApplication.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/PostData/AddPost
+        /// <summary>
+        /// Adds a post to the system
+        /// </summary>
+        /// <param name="post">JSON FORM DATA of a post</param>
+        /// <returns>
+        /// HEADER: 201 (Created)
+        /// CONTENT: Post ID, Post Data
+        /// or
+        /// HEADER: 400 (Bad Request)
+        /// </returns>
+        /// <example>
+        /// POST: api/PostData/AddPost
+        /// FORM DATA: Post JSON Object
+        /// </example>
         [ResponseType(typeof(Post))]
         [HttpPost]
         public IHttpActionResult AddPost(Post post)
@@ -110,7 +160,19 @@ namespace HospitalApplication.Controllers
             return CreatedAtRoute("DefaultApi", new { id = post.PostID }, post);
         }
 
-        // POST: api/PostData/DeletePost/5
+        /// <summary>
+        /// Deletes a post from the system by it's ID.
+        /// </summary>
+        /// <param name="id">The primary key of the post</param>
+        /// <returns>
+        /// HEADER: 200 (OK)
+        /// or
+        /// HEADER: 404 (NOT FOUND)
+        /// </returns>
+        /// <example>
+        /// POST: api/PostData/DeletePost/5
+        /// FORM DATA: (empty)
+        /// </example>
         [ResponseType(typeof(Post))]
         [HttpPost]
         public IHttpActionResult DeletePost(int id)
