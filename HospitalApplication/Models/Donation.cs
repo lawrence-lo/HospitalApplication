@@ -19,7 +19,11 @@ namespace HospitalApplication.Models
         [ForeignKey("Donor")]
         public int DonorID { get; set; }
         public virtual Donor Donor { get; set; }
-        
+
+        [ForeignKey("ApplicationUser")]
+        public string UserID { get; set; }
+        public virtual ApplicationUser ApplicationUser { get; set; }
+
     }
 
     public class DonationDto

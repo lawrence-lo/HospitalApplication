@@ -181,7 +181,9 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\DonationController.cs" />
     <Compile Include="Controllers\DonationDataController.cs" />
+    <Compile Include="Controllers\DonorController.cs" />
     <Compile Include="Controllers\DonorDataController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -209,6 +211,10 @@
     <Compile Include="Migrations\202203301920545_Donations.cs" />
     <Compile Include="Migrations\202203301920545_Donations.Designer.cs">
       <DependentUpon>202203301920545_Donations.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202203312246251_pending-migrations.cs" />
+    <Compile Include="Migrations\202203312246251_pending-migrations.Designer.cs">
+      <DependentUpon>202203312246251_pending-migrations.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -375,9 +381,14 @@
     <Content Include="Views\Post\New.cshtml" />
     <Content Include="Views\Post\DeleteConfirm.cshtml" />
     <Content Include="Views\Post\Edit.cshtml" />
+    <Content Include="Views\Donor\List.cshtml" />
+    <Content Include="Views\Donor\Details.cshtml" />
+    <Content Include="Views\Donor\New.cshtml" />
+    <Content Include="Views\Donor\Error.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Donation\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -407,6 +418,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202203301920545_Donations.resx">
       <DependentUpon>202203301920545_Donations.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202203312246251_pending-migrations.resx">
+      <DependentUpon>202203312246251_pending-migrations.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
