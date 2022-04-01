@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Net.Http;
 using HospitalApplication.Models;
 using System.Web.Script.Serialization;
+using HospitalApplication.Models.ViewModels;
 
 namespace HospitalApplication.Controllers
 {
@@ -17,7 +18,7 @@ namespace HospitalApplication.Controllers
         static DonorController()
         {
             client = new HttpClient();
-            client.BaseAddress = new Uri("https://localhost:44325/api/donordata");
+            client.BaseAddress = new Uri("https://localhost:44325/api/");
         }
 
         // GET: Donor/List
@@ -26,7 +27,7 @@ namespace HospitalApplication.Controllers
             //objective: communicate with Donor api to retrieve a list of Donors
             //curl https://localhost:44325/api/donordata/listdonors
 
-            string url = "listdonors";
+            string url = "donordata/listdonors";
             HttpResponseMessage response = client.GetAsync(url).Result;
 
             IEnumerable<DonorDto> donors = response.Content.ReadAsAsync<IEnumerable<DonorDto>>().Result;
@@ -40,11 +41,15 @@ namespace HospitalApplication.Controllers
             //objective: communicate with Donor api to retrieve one list of Donors
             //curl https://localhost:44325/api/donordata/finddonor/{id}
 
-            string url = "finddonor/"+id;
+            DetailsDonor ViewModel = new DetailsDonor();
+
+            string url = "donordata/finddonor/" + id;
             HttpResponseMessage response = client.GetAsync(url).Result;
 
             DonorDto selecteddonor = response.Content.ReadAsAsync<DonorDto>().Result;
-            return View(selecteddonor);
+            ViewModel.SelectedDonor = selecteddonor;
+
+            return View(ViewModel);
         }
 
         public ActionResult Error()
@@ -63,7 +68,7 @@ namespace HospitalApplication.Controllers
         public ActionResult Create(Donor donor)
         {
             //curl -H "Content-Type:application/jason" -d @donor.json https://localhost:44325/api/donordata/adddonor
-            string url = "adddonor";
+            string url = "donordata/adddonor";
             string jsonpayload = jss.Serialize(donor);
 
             HttpContent content = new StringContent(jsonpayload);
@@ -83,44 +88,62 @@ namespace HospitalApplication.Controllers
         // GET: Donor/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            UpdateDonor ViewModel = new UpdateDonor();
+
+            string url = "donordata/finddonor/" + id;
+            HttpResponseMessage response = client.GetAsync(url).Result;
+            DonorDto selecteddonor = response.Content.ReadAsAsync<DonorDto>().Result;
+            ViewModel.SelectedDonor = selecteddonor;
+
+            return View(ViewModel);
         }
 
-        // POST: Donor/Edit/5
+        // POST: Donor/Update/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Update(int id, Donor donor)
         {
-            try
-            {
-                // TODO: Add update logic here
+            string url = "donordata/updatedonor"+id;
+            string jsonpayload = jss.Serialize(donor);
 
-                return RedirectToAction("Index");
-            }
-            catch
+            HttpContent content = new StringContent(jsonpayload);
+            content.Headers.ContentType.MediaType = "application/json";
+
+            HttpResponseMessage response = client.PostAsync(url, content).Result;
+            if (response.IsSuccessStatusCode)
             {
-                return View();
+                return RedirectToAction("List");
+            }
+            else
+            {
+                return RedirectToAction("Error");
             }
         }
 
         // GET: Donor/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult DeleteConfirm(int id)
         {
-            return View();
+            string url = "donordata/finddonor" + id;
+            HttpResponseMessage response = client.GetAsync(url).Result;
+            DonorDto selecteddonor = response.Content.ReadAsAsync<DonorDto>().Result;
+            return View(selecteddonor);
         }
 
         // POST: Donor/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(int id)
         {
-            try
-            {
-                // TODO: Add delete logic here
+            string url = "donordata/deletedonor" + id;
+            HttpContent content = new StringContent("");
+            content.Headers.ContentType.MediaType = "application/json";
 
-                return RedirectToAction("Index");
-            }
-            catch
+            HttpResponseMessage response = client.PostAsync(url, content).Result;
+            if (response.IsSuccessStatusCode)
             {
-                return View();
+                return RedirectToAction("List");
+            }
+            else
+            {
+                return RedirectToAction("Error");
             }
         }
     }
