@@ -1,0 +1,14 @@
+﻿@model IEnumerable<HospitalApplication.Models.JobDto>
+@{
+    ViewBag.Title = "List";
+}
+
+<h2>List</h2>
+@foreach (var job in Model)
+{
+<div class="list-group text-center">
+    <h4 class="list-group-item-heading"><a href="/Job/Details/@job.JobID">@job.JobName</a></h4>
+    <p class="list-group-item-text">@job.JobDescription</p>
+    <p class="list-group-item-text">@job.DeptName</p>
+</div>
+}

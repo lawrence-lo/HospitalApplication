@@ -1,9 +1,0 @@
-﻿{
-    "JobID":4,    
-    "JobName":"Job4",
-    "JobSalary":21,
-    "JobHour":"54 hr / week",
-    "JobDescription":"444",
-    "DeptID":2,
-    "DeptName":"Dept1"
-}

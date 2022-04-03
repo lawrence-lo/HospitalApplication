@@ -186,6 +186,7 @@
     <Compile Include="Controllers\DonorController.cs" />
     <Compile Include="Controllers\DonorDataController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\JobController.cs" />
     <Compile Include="Controllers\JobDataController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PostController.cs" />
@@ -265,7 +266,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <None Include="jsondata\job.json" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="fonts\bootstrap\glyphicons-halflings-regular.woff2" />
@@ -408,6 +408,10 @@
     <Content Include="Views\Donor\Error.cshtml" />
     <Content Include="Views\Donor\DeleteConfirm.cshtml" />
     <Content Include="Views\Donor\Edit.cshtml" />
+    <Content Include="Views\Job\List.cshtml" />
+    <Content Include="Views\Job\Details.cshtml" />
+    <Content Include="Views\Job\New.cshtml" />
+    <Content Include="Views\Job\Error.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
