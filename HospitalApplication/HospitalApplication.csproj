@@ -193,45 +193,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202203250342416_InitialCreate.cs" />
-    <Compile Include="Migrations\202203250342416_InitialCreate.Designer.cs">
-      <DependentUpon>202203250342416_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\202204031618131_donor-danation.cs" />
+    <Compile Include="Migrations\202204031618131_donor-danation.Designer.cs">
+      <DependentUpon>202204031618131_donor-danation.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202203250456270_posts.cs" />
-    <Compile Include="Migrations\202203250456270_posts.Designer.cs">
-      <DependentUpon>202203250456270_posts.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202203300220267_posts-update.cs" />
-    <Compile Include="Migrations\202203300220267_posts-update.Designer.cs">
-      <DependentUpon>202203300220267_posts-update.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202203301853261_Donors.cs" />
-    <Compile Include="Migrations\202203301853261_Donors.Designer.cs">
-      <DependentUpon>202203301853261_Donors.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202203301920545_Donations.cs" />
-    <Compile Include="Migrations\202203301920545_Donations.Designer.cs">
-      <DependentUpon>202203301920545_Donations.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202203312246251_pending-migrations.cs" />
-    <Compile Include="Migrations\202203312246251_pending-migrations.Designer.cs">
-      <DependentUpon>202203312246251_pending-migrations.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202204022237304_departments.cs" />
-    <Compile Include="Migrations\202204022237304_departments.Designer.cs">
-      <DependentUpon>202204022237304_departments.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202204022300242_jobs.cs" />
-    <Compile Include="Migrations\202204022300242_jobs.Designer.cs">
-      <DependentUpon>202204022300242_jobs.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202204022311320_job-department.cs" />
-    <Compile Include="Migrations\202204022311320_job-department.Designer.cs">
-      <DependentUpon>202204022311320_job-department.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202204030223171_department-donations.cs" />
-    <Compile Include="Migrations\202204030223171_department-donations.Designer.cs">
-      <DependentUpon>202204030223171_department-donations.cs</DependentUpon>
+    <Compile Include="Migrations\202204031807080_donation.cs" />
+    <Compile Include="Migrations\202204031807080_donation.Designer.cs">
+      <DependentUpon>202204031807080_donation.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -242,8 +210,10 @@
     <Compile Include="Models\Job.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Post.cs" />
+    <Compile Include="Models\ViewModels\DetailsDonation.cs" />
     <Compile Include="Models\ViewModels\DetailsDonor.cs" />
     <Compile Include="Models\ViewModels\DetailsPost.cs" />
+    <Compile Include="Models\ViewModels\UpdateDonation.cs" />
     <Compile Include="Models\ViewModels\UpdateDonor.cs" />
     <Compile Include="Models\ViewModels\UpdatePost.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -408,10 +378,16 @@
     <Content Include="Views\Donor\Error.cshtml" />
     <Content Include="Views\Donor\DeleteConfirm.cshtml" />
     <Content Include="Views\Donor\Edit.cshtml" />
+    <Content Include="Views\Donor\Details.cshtml" />
+    <Content Include="Views\Donation\Error.cshtml" />
+    <Content Include="Views\Donation\New.cshtml" />
+    <Content Include="Views\Donation\List.cshtml" />
+    <Content Include="Views\Donation\Edit.cshtml" />
+    <Content Include="Views\Donation\Details.cshtml" />
+    <Content Include="Views\Donation\DeleteConfirm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Donation\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -427,35 +403,11 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202203250342416_InitialCreate.resx">
-      <DependentUpon>202203250342416_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202204031618131_donor-danation.resx">
+      <DependentUpon>202204031618131_donor-danation.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202203250456270_posts.resx">
-      <DependentUpon>202203250456270_posts.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202203300220267_posts-update.resx">
-      <DependentUpon>202203300220267_posts-update.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202203301853261_Donors.resx">
-      <DependentUpon>202203301853261_Donors.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202203301920545_Donations.resx">
-      <DependentUpon>202203301920545_Donations.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202203312246251_pending-migrations.resx">
-      <DependentUpon>202203312246251_pending-migrations.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202204022237304_departments.resx">
-      <DependentUpon>202204022237304_departments.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202204022300242_jobs.resx">
-      <DependentUpon>202204022300242_jobs.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202204022311320_job-department.resx">
-      <DependentUpon>202204022311320_job-department.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202204030223171_department-donations.resx">
-      <DependentUpon>202204030223171_department-donations.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202204031807080_donation.resx">
+      <DependentUpon>202204031807080_donation.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
