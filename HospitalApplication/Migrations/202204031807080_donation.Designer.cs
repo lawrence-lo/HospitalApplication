@@ -7,13 +7,13 @@ namespace HospitalApplication.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class Donations : IMigrationMetadata
+    public sealed partial class donation : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Donations));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(donation));
         
         string IMigrationMetadata.Id
         {
-            get { return "202203301920545_Donations"; }
+            get { return "202204031807080_donation"; }
         }
         
         string IMigrationMetadata.Source

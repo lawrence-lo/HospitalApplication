@@ -1,0 +1,22 @@
+﻿@model IEnumerable<HospitalApplication.Models.DonationDto>
+@{
+    ViewBag.Title = "List";
+}
+
+<div class="row">
+    <div class="col-sm-4 col-sm-offset-4">
+        <h2 class="text-center">List of Donations</h2>
+        <div class="text-right"><a class="btn btn-default" href="/Donation/New" role="button">New Donation</a></div>
+        @foreach (var donation in Model)
+        {
+            <div class="list-group text-center">
+                <a href="/Donation/Details/@donation.DonationID" class="list-group-item">
+                    <h4 class="list-group-item-heading">@donation.DonationDescription</h4>
+                    <p class="list-group-item-text">@donation.DonationAmount</p>
+                    <p class="list-group-item-text">@donation.DonationDate</p>
+
+                </a>
+            </div>
+        }
+    </div>
+</div>

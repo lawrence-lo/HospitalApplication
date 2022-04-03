@@ -17,7 +17,7 @@ namespace HospitalApplication.Models
         public string DonorAddress { get; set; }
         public string DonorPhone { get; set; }
 
-        public ICollection<Donation> Donation { get; set; }
+        public ICollection<Donation> Donations { get; set; }
 
         [ForeignKey("ApplicationUser")]
         public string UserID { get; set; }
@@ -30,5 +30,8 @@ namespace HospitalApplication.Models
         public string DonorEmail { get; set; }
         public string DonorAddress { get; set; }
         public string DonorPhone { get; set; }
+        
+        public string UserID { get; set; }
+
     }
 }

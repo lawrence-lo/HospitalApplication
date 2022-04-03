@@ -26,30 +26,26 @@ namespace HospitalApplication.Controllers
             Donations.ForEach(d => DonationDtos.Add(new DonationDto()
             {
                 DonationID = d.DonationID,
-                DonationAmount = d.DonationAmount,
-                DonationDate = d.DonationDate,
                 DonationDescription = d.DonationDescription,
-                DonorID = d.Donor.DonorID,
-                DonorName = d.Donor.DonorName
+                DonationDate = d.DonationDate,
+                DonationAmount = d.DonationAmount
             }));
             return DonationDtos;
         }
 
         // GET: api/DonationData/FindDonation/5
-        
-        [ResponseType(typeof(Donation))]
         [HttpGet]
+        [ResponseType(typeof(Donation))]
         public IHttpActionResult FindDonation(int id)
         {
             Donation Donation = db.Donations.Find(id);
             DonationDto DonationDto = new DonationDto()
             {
                 DonationID = Donation.DonationID,
-                DonationAmount = Donation.DonationAmount,
-                DonationDate = Donation.DonationDate,
                 DonationDescription = Donation.DonationDescription,
-                DonorID = Donation.Donor.DonorID,
-                DonorName = Donation.Donor.DonorName
+                DonationDate = Donation.DonationDate,
+                DonationAmount = Donation.DonationAmount
+
             };
             if (Donation == null)
             {
