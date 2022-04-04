@@ -181,6 +181,8 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\DepartmentController.cs" />
+    <Compile Include="Controllers\DepartmentDataController.cs" />
     <Compile Include="Controllers\DonationController.cs" />
     <Compile Include="Controllers\DonationDataController.cs" />
     <Compile Include="Controllers\DonorController.cs" />
@@ -322,6 +324,7 @@
       <DependentUpon>compilerconfig.json</DependentUpon>
     </None>
     <Content Include="jsondata\donor.json" />
+    <Content Include="jsondata\department.json" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -389,6 +392,10 @@
     <Content Include="Views\Donation\Edit.cshtml" />
     <Content Include="Views\Donation\Details.cshtml" />
     <Content Include="Views\Donation\DeleteConfirm.cshtml" />
+    <Content Include="Views\Department\List.cshtml" />
+    <Content Include="Views\Department\Details.cshtml" />
+    <Content Include="Views\Department\New.cshtml" />
+    <Content Include="Views\Department\Error.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
