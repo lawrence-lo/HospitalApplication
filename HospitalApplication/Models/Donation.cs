@@ -32,11 +32,7 @@ namespace HospitalApplication.Models
 
     public class DonationDto
     {
-<<<<<<< HEAD
         public int DonationID { get; set; } 
-=======
-        public int DonationID { get; set; }
->>>>>>> 87fdccaa748bc90f12ae5e52b6ca73f86c16a2b1
         public decimal DonationAmount { get; set; }
         public DateTime DonationDate { get; set; }
         public string DonationDescription { get; set; }
