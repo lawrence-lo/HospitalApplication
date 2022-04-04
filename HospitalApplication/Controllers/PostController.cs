@@ -29,6 +29,24 @@ namespace HospitalApplication.Controllers
             client.BaseAddress = new Uri("https://localhost:44325/api/");
         }
 
+        /// <summary>
+        /// Grabs the authentication cookie sent to this controller.
+        /// </summary>
+        private void GetApplicationCookie()
+        {
+            string token = "";
+            client.DefaultRequestHeaders.Remove("Cookie");
+            if (!User.Identity.IsAuthenticated) return;
+
+            HttpCookie cookie = System.Web.HttpContext.Current.Request.Cookies.Get(".AspNet.ApplicationCookie");
+            if (cookie != null) token = cookie.Value;
+
+            Debug.WriteLine("Token Submitted is : " + token);
+            if (token != "") client.DefaultRequestHeaders.Add("Cookie", ".AspNet.ApplicationCookie=" + token);
+
+            return;
+        }
+
         // GET: Post/List
         public ActionResult List()
         {
@@ -69,6 +87,7 @@ namespace HospitalApplication.Controllers
         }
 
         // GET: Post/New
+        [Authorize]
         public ActionResult New()
         {
             return View();
@@ -76,8 +95,10 @@ namespace HospitalApplication.Controllers
 
         // POST: Post/Create
         [HttpPost]
+        [Authorize]
         public ActionResult Create(Post post)
         {
+            GetApplicationCookie();//get token credentials
             //objective: add a new post into our system using the API
             //curl -H "Content-Type:application/json" -d @post.json https://localhost:44325/api/postdata/addpost 
             string url = "postdata/addpost";
@@ -100,6 +121,7 @@ namespace HospitalApplication.Controllers
         }
 
         // GET: Post/Edit/5
+        [Authorize]
         public ActionResult Edit(int id)
         {
             UpdatePost ViewModel = new UpdatePost();
@@ -117,6 +139,7 @@ namespace HospitalApplication.Controllers
         [HttpPost]
         public ActionResult Update(int id, Post post)
         {
+            GetApplicationCookie();//get token credentials
             string url = "postdata/updatepost/" + id;
             string jsonpayload = jss.Serialize(post);
             HttpContent content = new StringContent(jsonpayload);
@@ -134,6 +157,7 @@ namespace HospitalApplication.Controllers
         }
 
         // GET: Post/Delete/5
+        [Authorize]
         public ActionResult DeleteConfirm(int id)
         {
             string url = "postdata/findpost/" + id;
@@ -144,8 +168,10 @@ namespace HospitalApplication.Controllers
 
         // POST: Post/Delete/5
         [HttpPost]
+        [Authorize]
         public ActionResult Delete(int id)
         {
+            GetApplicationCookie();//get token credentials
             string url = "postdata/deletepost/" + id;
             HttpContent content = new StringContent("");
             content.Headers.ContentType.MediaType = "application/json";
