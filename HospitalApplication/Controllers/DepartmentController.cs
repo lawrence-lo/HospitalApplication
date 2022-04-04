@@ -1,4 +1,5 @@
 ﻿using HospitalApplication.Models;
+using HospitalApplication.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,6 +40,9 @@ namespace HospitalApplication.Controllers
 
             DepartmentDto selecteddepartment = response.Content.ReadAsAsync<DepartmentDto>().Result;
 
+            /* To-do */
+            //show employees related to this department
+
             return View(selecteddepartment);
         }
 
@@ -77,44 +81,64 @@ namespace HospitalApplication.Controllers
         // GET: Department/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            UpdateDepartment ViewModel = new UpdateDepartment();
+            
+            //existing department information
+            string url = "departmentdata/finddepartment/" + id;
+            HttpResponseMessage response = client.GetAsync(url).Result;
+            DepartmentDto SelectedDepartment = response.Content.ReadAsAsync<DepartmentDto>().Result;
+            ViewModel.SelectedDepartment = SelectedDepartment;
+
+            /* To-do */
+            //include all employees to choose from when updating this department
+
+            return View(ViewModel);
         }
 
-        // POST: Department/Edit/5
+        // POST: Department/Update/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Update(int id, Department department)
         {
-            try
+            string url = "departmentdata/updatedepartment/" + id;
+            string jsonpayload = jss.Serialize(department);
+            HttpContent content = new StringContent(jsonpayload);
+            content.Headers.ContentType.MediaType = "application/json";
+            HttpResponseMessage response = client.PostAsync(url, content).Result;
+            if (response.IsSuccessStatusCode)
             {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
+                return RedirectToAction("List");
             }
-            catch
+            else
             {
-                return View();
+                return RedirectToAction("Error");
             }
         }
 
-        // GET: Department/Delete/5
-        public ActionResult Delete(int id)
+        // GET: Department/DeleteConfirm/5
+        public ActionResult DeleteConfirm(int id)
         {
-            return View();
+            string url = "departmentdata/finddepartment/" + id;
+            HttpResponseMessage response = client.GetAsync(url).Result;
+            DepartmentDto SelectedDepartment = response.Content.ReadAsAsync<DepartmentDto>().Result;
+            return View(SelectedDepartment);
         }
 
         // POST: Department/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(int id)
         {
-            try
-            {
-                // TODO: Add delete logic here
+            string url = "departmentdata/deletedepartment/" + id;
+            HttpContent content = new StringContent("");
+            content.Headers.ContentType.MediaType = "application/json";
+            HttpResponseMessage response = client.PostAsync(url, content).Result;
 
-                return RedirectToAction("Index");
-            }
-            catch
+            if (response.IsSuccessStatusCode)
             {
-                return View();
+                return RedirectToAction("List");
+            }
+            else
+            {
+                return RedirectToAction("Error");
             }
         }
     }

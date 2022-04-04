@@ -1,4 +1,5 @@
 ﻿using HospitalApplication.Models;
+using HospitalApplication.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -50,7 +51,14 @@ namespace HospitalApplication.Controllers
         // GET: Job/New
         public ActionResult New()
         {
-            return View();
+            //information about all departments
+            //Get api/departmentdata/listdepartments
+
+            string url = "departmentdata/listdepartments";
+            HttpResponseMessage response = client.GetAsync(url).Result;
+            IEnumerable<DepartmentDto> DepartmentOptions = response.Content.ReadAsAsync<IEnumerable<DepartmentDto>>().Result;
+            
+            return View(DepartmentOptions);
         }
 
         // POST: Job/Create
@@ -77,44 +85,68 @@ namespace HospitalApplication.Controllers
         // GET: Job/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            UpdateJob ViewModel = new UpdateJob();
+            
+            //the existing job information
+            string url = "jobdata/findjob/"+id;
+            HttpResponseMessage response = client.GetAsync(url).Result;
+            JobDto SelectedJob = response.Content.ReadAsAsync<JobDto>().Result;
+            ViewModel.SelectedJob = SelectedJob;
+
+            //include all departments to choose from when updating this job
+            url = "departmentdata/listdepartments/";
+            response = client.GetAsync(url).Result;
+            IEnumerable<DepartmentDto> DepartmentOptions = response.Content.ReadAsAsync<IEnumerable<DepartmentDto>>().Result;
+
+            ViewModel.DepartmentOptions = DepartmentOptions;
+
+            return View(ViewModel);
         }
 
-        // POST: Job/Edit/5
+        // POST: Job/Update/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Update(int id, Job job)
         {
-            try
+            string url = "jobdata/updatejob/" + id;
+            string jsonpayload = jss.Serialize(job);
+            HttpContent content = new StringContent(jsonpayload);
+            content.Headers.ContentType.MediaType = "application/json";
+            HttpResponseMessage response = client.PostAsync(url, content).Result;
+            if (response.IsSuccessStatusCode)
             {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
+                return RedirectToAction("List");
             }
-            catch
+            else
             {
-                return View();
+                return RedirectToAction("Error");
             }
         }
 
         // GET: Job/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult DeleteConfirm(int id)
         {
-            return View();
+            string url = "jobdata/findjob/" + id;
+            HttpResponseMessage response = client.GetAsync(url).Result;
+            JobDto SelectedJob = response.Content.ReadAsAsync<JobDto>().Result;
+            return View(SelectedJob);
         }
 
         // POST: Job/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(int id)
         {
-            try
-            {
-                // TODO: Add delete logic here
+            string url = "jobdata/deletejob/" + id;
+            HttpContent content = new StringContent("");
+            content.Headers.ContentType.MediaType = "application/json";
+            HttpResponseMessage response = client.PostAsync(url, content).Result;
 
-                return RedirectToAction("Index");
-            }
-            catch
+            if (response.IsSuccessStatusCode)
             {
-                return View();
+                return RedirectToAction("List");
+            }
+            else
+            {
+                return RedirectToAction("Error");
             }
         }
     }

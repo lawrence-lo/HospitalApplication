@@ -1,14 +1,20 @@
 ﻿@model IEnumerable<HospitalApplication.Models.DepartmentDto>
 @{
-    ViewBag.Title = "List";
+    ViewBag.Title = "List of departments";
 }
 
-<h2>List</h2>
-@foreach (var department in Model)
-{
-    <div class="list-group text-center">
-        <h4 class="list-group-item-heading"><a href="/Department/Details/@department.DeptID">@department.DeptName</a></h4>
-        <p class="list-group-item-text">@department.DeptDescription</p>
-        <p class="list-group-item-text">@department.DeptLocation</p>
+<div class="row">
+    <div class="col-sm-4 col-sm-offset-4">
+        <h2 class="text-center">List of departments</h2>
+        <div class="text-right"><a class="btn btn-default" href="/Department/New" role="button">New Department</a></div>
+        @foreach (var department in Model)
+        {
+            <div class="list-group text-center">
+                <a href="/Department/Details/@department.DeptID" class="list-group-item">
+                    <h4 class="list-group-item-heading">@department.DeptName</h4>
+                    <p class="list-group-item-text">@department.DeptDescription</p>
+                </a>
+            </div>
+        }
     </div>
-}
+</div>
