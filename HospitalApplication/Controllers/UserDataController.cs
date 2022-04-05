@@ -54,6 +54,67 @@ namespace HospitalApplication.Controllers
         }
 
         /// <summary>
+        /// Returns all users in the system associated with a particular department.
+        /// </summary>
+        /// <returns>
+        /// HEADER: 200 (OK)
+        /// CONTENT: all users in the database under the same department
+        /// </returns>
+        /// <param name="id">Department Primary Key</param>
+        /// <example>
+        /// GET: api/UserData/ListUsersForDepartment/1
+        /// </example>
+        [HttpGet]
+        [ResponseType(typeof(UserDto))]
+        public IHttpActionResult ListUsersForDepartment(int id)
+        {
+            List<ApplicationUser> Users = db.Users.Where(a => a.Department == id).ToList();
+            List<UserDto> UserDtos = new List<UserDto>();
+
+            Users.ForEach(a => UserDtos.Add(new UserDto()
+            {
+                Email = a.Email,
+                PhoneNumber = a.PhoneNumber,
+                LastName = a.LastName,
+                GivenName = a.GivenName,
+                Department = a.Department,
+                Position = a.Position,
+            }));
+
+            return Ok(UserDtos);
+        }
+
+        /// <summary>
+        /// Returns all doctors in the system.
+        /// </summary>
+        /// <returns>
+        /// HEADER: 200 (OK)
+        /// CONTENT: all doctors in the database
+        /// </returns>
+        /// <example>
+        /// GET: api/UserData/ListDoctors
+        /// </example>
+        [HttpGet]
+        [ResponseType(typeof(UserDto))]
+        public IHttpActionResult ListDoctors()
+        {
+            List<ApplicationUser> Users = db.Users.Where(a => a.Position.ToLower().Contains("doctor")).ToList();
+            List<UserDto> UserDtos = new List<UserDto>();
+
+            Users.ForEach(a => UserDtos.Add(new UserDto()
+            {
+                Email = a.Email,
+                PhoneNumber = a.PhoneNumber,
+                LastName = a.LastName,
+                GivenName = a.GivenName,
+                Department = a.Department,
+                Position = a.Position,
+            }));
+
+            return Ok(UserDtos);
+        }
+
+        /// <summary>
         /// Returns a user in the system.
         /// </summary>
         /// <returns>
