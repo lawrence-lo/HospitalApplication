@@ -54,26 +54,7 @@ namespace HospitalApplication.Controllers
             return Ok(DepartmentDtos);
         }
 
-        [HttpGet]
-        [ResponseType(typeof(DepartmentDto))]
-        public IHttpActionResult ListDepartmentsForUser(int id)
-        {
-            List<Department> Departments = db.Departments.Where(
-                d => d.Users.Any(
-                    u => u.UserID == id
-                )).ToList();
-            List<DepartmentDto> DepartmentDtos = new List<DepartmentDto>();
-
-            Departments.ForEach(d => DepartmentDtos.Add(new DepartmentDto()
-            {
-                DeptID = d.DeptID,
-                DeptName = d.DeptName,
-                DeptLocation = d.DeptLocation,
-                DeptDescription = d.DeptDescription
-            }));
-
-            return Ok(DepartmentDtos);
-        }
+ 
 
         // GET: api/DepartmentData/FindDepartment/5
         [ResponseType(typeof(Department))]
