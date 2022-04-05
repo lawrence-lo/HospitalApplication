@@ -54,6 +54,11 @@ namespace HospitalApplication.Controllers
             return Ok(DepartmentDtos);
         }
 
+<<<<<<< HEAD
+=======
+ 
+
+>>>>>>> 2870d32a06acc5180b3cfa37404eac81f83573c9
         // GET: api/DepartmentData/FindDepartment/5
         [ResponseType(typeof(Department))]
         [HttpGet]
