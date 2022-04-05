@@ -51,7 +51,7 @@
                 <label class="col-sm-4 control-label" for="Department">Department</label>
                 <div class="col-sm-8">
                     <select class="form-control" name="Department" id="Department">
-                        @if (Model.SelectedUser.Department == null)
+                        @if (Model.SelectedUser.Department == 0)
                         {
                             <option disabled selected> Choose Department </option>
                         }
@@ -61,13 +61,13 @@
                         }
                         @foreach (var department in Model.DepartmentsOptions)
                         {
-                            if (Model.SelectedUser.Department != null && department.DeptName == Model.SelectedUser.Department)
+                            if (department.DeptID == Model.SelectedUser.Department)
                             {
-                                <option value="@department.DeptName" selected>@department.DeptName</option>
+                                <option value="@department.DeptID" selected>@department.DeptName</option>
                             }
                             else
                             {
-                                <option value="@department.DeptName">@department.DeptName</option>
+                                <option value="@department.DeptID">@department.DeptName</option>
                             }
                         }
                     </select>

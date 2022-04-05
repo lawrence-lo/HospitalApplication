@@ -13,7 +13,7 @@ namespace HospitalApplication.Models
         public string LastName { get; set; }
         public string GivenName { get; set; }
         public DateTime DateOfBirth { get; set; }
-        public string Department { get; set; }
+        public int Department { get; set; }
         public string Position { get; set; }
         public DateTime HireDate { get; set; }
         public decimal Salary { get; set; }

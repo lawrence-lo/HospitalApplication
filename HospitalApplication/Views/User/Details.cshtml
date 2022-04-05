@@ -36,7 +36,17 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-4">Department</div>
-                        <div class="col-sm-8">@Model.SelectedUser.Department</div>
+                        @foreach (var department in Model.DepartmentsOptions)
+                        {
+                            if (department.DeptID == Model.SelectedUser.Department)
+                            {
+                                <div class="col-sm-8">@department.DeptName</div>
+                            }
+                            else
+                            {
+                                <div class="col-sm-8"></div>
+                            }
+                        }
                     </div>
                     <div class="row">
                         <div class="col-sm-4">Position</div>

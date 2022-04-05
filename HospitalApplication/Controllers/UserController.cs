@@ -81,6 +81,13 @@ namespace HospitalApplication.Controllers
 
             ViewModel.SelectedUser = SelectedUser;
 
+            //get list of departments
+            url = "departmentdata/listdepartments/";
+            response = client.GetAsync(url).Result;
+            IEnumerable<DepartmentDto> DepartmentsOptions = response.Content.ReadAsAsync<IEnumerable<DepartmentDto>>().Result;
+
+            ViewModel.DepartmentsOptions = DepartmentsOptions;
+
             return View(ViewModel);
         }
 
