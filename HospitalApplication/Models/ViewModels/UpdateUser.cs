@@ -9,5 +9,8 @@ namespace HospitalApplication.Models.ViewModels
     {
         //the existing user information
         public UserDto SelectedUser { get; set; }
+
+        //list of departments
+        public IEnumerable<DepartmentDto> DepartmentsOptions { get; set; }
     }
 }
