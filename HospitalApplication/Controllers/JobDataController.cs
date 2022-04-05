@@ -63,6 +63,7 @@ namespace HospitalApplication.Controllers
         // POST: api/JobData/UpdateJob/5
         [ResponseType(typeof(void))]
         [HttpPost]
+        [Authorize]
         public IHttpActionResult UpdateJob(int id, Job job)
         {
             if (!ModelState.IsValid)
