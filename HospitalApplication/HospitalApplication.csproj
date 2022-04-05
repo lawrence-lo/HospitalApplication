@@ -218,6 +218,10 @@
     <Compile Include="Migrations\202204052207344_UserDto.Designer.cs">
       <DependentUpon>202204052207344_UserDto.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202204052259236_UserDto-update.cs" />
+    <Compile Include="Migrations\202204052259236_UserDto-update.Designer.cs">
+      <DependentUpon>202204052259236_UserDto-update.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Department.cs" />
@@ -456,6 +460,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202204052207344_UserDto.resx">
       <DependentUpon>202204052207344_UserDto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202204052259236_UserDto-update.resx">
+      <DependentUpon>202204052259236_UserDto-update.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
