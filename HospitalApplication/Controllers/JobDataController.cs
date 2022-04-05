@@ -100,6 +100,7 @@ namespace HospitalApplication.Controllers
         // POST: api/JobData/AddJob
         [ResponseType(typeof(Job))]
         [HttpPost]
+        [Authorize]
         public IHttpActionResult AddJob(Job job)
         {
             if (!ModelState.IsValid)
@@ -116,6 +117,7 @@ namespace HospitalApplication.Controllers
         // POST: api/JobData/DeleteJob/5
         [ResponseType(typeof(Job))]
         [HttpPost]
+        [Authorize]
         public IHttpActionResult DeleteJob(int id)
         {
             Job job = db.Jobs.Find(id);

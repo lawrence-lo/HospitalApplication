@@ -18,9 +18,9 @@ namespace HospitalApplication.Models
         /* To-do: Dept Head, Staff No. */
 
         //A department can receive many donations
-        //A department can have many users
+        //A department can have many jobs
         public ICollection<Donation> Donations { get; set; }
-        public ICollection<UserDto> Users { get; set; }
+        public ICollection<Job> Jobs { get; set; }
     }
 
     public class DepartmentDto
