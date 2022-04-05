@@ -10,37 +10,40 @@ using System.Web.Script.Serialization;
 
 namespace HospitalApplication.Controllers
 {
-    public class JobController : Controller
+    public class DepartmentController : Controller
     {
         private static readonly HttpClient client;
         private JavaScriptSerializer jss = new JavaScriptSerializer();
 
-        static JobController()
+        static DepartmentController()
         {
             client = new HttpClient();
             client.BaseAddress = new Uri("https://localhost:44325/api/");
         }
-        
-        // GET: Job/List
+
+        // GET: Department/List
         public ActionResult List()
         {
-            string url = "jobdata/listjobs";
+            string url = "departmentdata/listdepartments";
             HttpResponseMessage response = client.GetAsync(url).Result;
 
-            IEnumerable<JobDto> jobs = response.Content.ReadAsAsync<IEnumerable<JobDto>>().Result;
+            IEnumerable<DepartmentDto> departments = response.Content.ReadAsAsync<IEnumerable<DepartmentDto>>().Result;
 
-            return View(jobs);
+            return View(departments);
         }
 
-        // GET: Job/Details/5
+        // GET: Department/Details/5
         public ActionResult Details(int id)
         {
-            string url = "jobdata/findjob/"+id;
+            string url = "departmentdata/finddepartment/" + id;
             HttpResponseMessage response = client.GetAsync(url).Result;
 
-            JobDto selectedjob = response.Content.ReadAsAsync<JobDto>().Result;
+            DepartmentDto selecteddepartment = response.Content.ReadAsAsync<DepartmentDto>().Result;
 
-            return View(selectedjob);
+            /* To-do */
+            //show employees related to this department
+
+            return View(selecteddepartment);
         }
 
         public ActionResult Error()
@@ -48,25 +51,18 @@ namespace HospitalApplication.Controllers
             return View();
         }
 
-        // GET: Job/New
+        // GET: Department/New
         public ActionResult New()
         {
-            //information about all departments
-            //Get api/departmentdata/listdepartments
-
-            string url = "departmentdata/listdepartments";
-            HttpResponseMessage response = client.GetAsync(url).Result;
-            IEnumerable<DepartmentDto> DepartmentOptions = response.Content.ReadAsAsync<IEnumerable<DepartmentDto>>().Result;
-            
-            return View(DepartmentOptions);
+            return View();
         }
 
-        // POST: Job/Create
+        // POST: Department/Create
         [HttpPost]
-        public ActionResult Create(Job job)
+        public ActionResult Create(Department department)
         {
-            string url = "jobdata/addjob";
-            string jsonpayload = jss.Serialize(job);
+            string url = "departmentdata/adddepartment";
+            string jsonpayload = jss.Serialize(department);
 
             HttpContent content = new StringContent(jsonpayload);
             content.Headers.ContentType.MediaType = "application/json";
@@ -79,36 +75,32 @@ namespace HospitalApplication.Controllers
             else
             {
                 return RedirectToAction("Error");
-            } 
+            }
         }
 
-        // GET: Job/Edit/5
+        // GET: Department/Edit/5
         public ActionResult Edit(int id)
         {
-            UpdateJob ViewModel = new UpdateJob();
+            UpdateDepartment ViewModel = new UpdateDepartment();
             
-            //the existing job information
-            string url = "jobdata/findjob/"+id;
+            //existing department information
+            string url = "departmentdata/finddepartment/" + id;
             HttpResponseMessage response = client.GetAsync(url).Result;
-            JobDto SelectedJob = response.Content.ReadAsAsync<JobDto>().Result;
-            ViewModel.SelectedJob = SelectedJob;
+            DepartmentDto SelectedDepartment = response.Content.ReadAsAsync<DepartmentDto>().Result;
+            ViewModel.SelectedDepartment = SelectedDepartment;
 
-            //include all departments to choose from when updating this job
-            url = "departmentdata/listdepartments/";
-            response = client.GetAsync(url).Result;
-            IEnumerable<DepartmentDto> DepartmentOptions = response.Content.ReadAsAsync<IEnumerable<DepartmentDto>>().Result;
-
-            ViewModel.DepartmentOptions = DepartmentOptions;
+            /* To-do */
+            //include all employees to choose from when updating this department
 
             return View(ViewModel);
         }
 
-        // POST: Job/Update/5
+        // POST: Department/Update/5
         [HttpPost]
-        public ActionResult Update(int id, Job job)
+        public ActionResult Update(int id, Department department)
         {
-            string url = "jobdata/updatejob/" + id;
-            string jsonpayload = jss.Serialize(job);
+            string url = "departmentdata/updatedepartment/" + id;
+            string jsonpayload = jss.Serialize(department);
             HttpContent content = new StringContent(jsonpayload);
             content.Headers.ContentType.MediaType = "application/json";
             HttpResponseMessage response = client.PostAsync(url, content).Result;
@@ -122,20 +114,20 @@ namespace HospitalApplication.Controllers
             }
         }
 
-        // GET: Job/Delete/5
+        // GET: Department/DeleteConfirm/5
         public ActionResult DeleteConfirm(int id)
         {
-            string url = "jobdata/findjob/" + id;
+            string url = "departmentdata/finddepartment/" + id;
             HttpResponseMessage response = client.GetAsync(url).Result;
-            JobDto SelectedJob = response.Content.ReadAsAsync<JobDto>().Result;
-            return View(SelectedJob);
+            DepartmentDto SelectedDepartment = response.Content.ReadAsAsync<DepartmentDto>().Result;
+            return View(SelectedDepartment);
         }
 
-        // POST: Job/Delete/5
+        // POST: Department/Delete/5
         [HttpPost]
         public ActionResult Delete(int id)
         {
-            string url = "jobdata/deletejob/" + id;
+            string url = "departmentdata/deletedepartment/" + id;
             HttpContent content = new StringContent("");
             content.Headers.ContentType.MediaType = "application/json";
             HttpResponseMessage response = client.PostAsync(url, content).Result;

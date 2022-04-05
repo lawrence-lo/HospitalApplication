@@ -4,7 +4,10 @@
     ViewBag.Title = "Details";
 }
 
-<a href="/Job/List"></a>
+<a href="/Job/List">Go back to list</a>
+<a href="/Job/Edit/@Model.JobID">Update</a>
+<a href="/Job/DeleteConfirm/@Model.JobID">Delete</a>
+
 <h2>@Model.JobName</h2>
 <div>@Model.JobDescription</div>
 <div>@Model.DeptName</div>

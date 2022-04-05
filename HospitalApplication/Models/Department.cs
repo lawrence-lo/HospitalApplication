@@ -22,4 +22,12 @@ namespace HospitalApplication.Models
         public ICollection<Donation> Donations { get; set; }
         public ICollection<Job> Jobs { get; set; }
     }
+
+    public class DepartmentDto
+    {
+        public int DeptID { get; set; }
+        public string DeptName { get; set; }
+        public string DeptLocation { get; set; }
+        public string DeptDescription { get; set; }
+    }
 }

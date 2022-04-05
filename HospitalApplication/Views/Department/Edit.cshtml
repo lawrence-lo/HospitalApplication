@@ -1,0 +1,41 @@
+﻿@model HospitalApplication.Models.ViewModels.UpdateDepartment
+@{
+    ViewBag.Title = "Update Department";
+}
+
+<div class="row">
+    <div class="col-sm-6 col-sm-offset-3">
+        <h2 class="text-center">Update Department</h2>
+        <form class="form-horizontal" action="/Department/Update/@Model.SelectedDepartment.DeptID" method="POST">
+            <div style="display:none;">
+                @* Pass through the post ID *@
+                <input type="text" name="DeptID" value="@Model.SelectedDepartment.DeptID">
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 control-label" for="DeptName">Name</label>
+                <div class="col-sm-8">
+                    <input class="form-control" type="text" id="DeptName" name="DeptName" value="@Model.SelectedDepartment.DeptName">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 control-label" for="DeptLocation">Location</label>
+                <div class="col-sm-8">
+                    <input class="form-control" type="text" id="DeptLocation" name="DeptLocation" value="@Model.SelectedDepartment.DeptLocation">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 control-label" for="DeptDescription">Description</label>
+                <div class="col-sm-8">
+                    <textarea class="form-control" id="DeptDescription" name="DeptDescription" rows="5">@Model.SelectedDepartment.DeptDescription</textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-4 col-sm-8">
+                    <button class="btn btn-default" type="submit">Update Department</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+

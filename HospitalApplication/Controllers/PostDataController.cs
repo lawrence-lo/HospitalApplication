@@ -10,6 +10,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using HospitalApplication.Models;
 using System.Diagnostics;
+using Microsoft.AspNet.Identity;
 
 namespace HospitalApplication.Controllers
 {
@@ -98,6 +99,7 @@ namespace HospitalApplication.Controllers
         /// </example>
         [ResponseType(typeof(void))]
         [HttpPost]
+        [Authorize]
         public IHttpActionResult UpdatePost(int id, Post post)
         {
             if (!ModelState.IsValid)
@@ -111,6 +113,8 @@ namespace HospitalApplication.Controllers
             }
 
             db.Entry(post).State = EntityState.Modified;
+            //do not modify the attached user id on update
+            db.Entry(post).Property(b => b.UserID).IsModified = false;
 
             try
             {
@@ -147,12 +151,16 @@ namespace HospitalApplication.Controllers
         /// </example>
         [ResponseType(typeof(Post))]
         [HttpPost]
+        [Authorize]
         public IHttpActionResult AddPost(Post post)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
+
+            //attach the id
+            post.UserID = User.Identity.GetUserId();
 
             db.Posts.Add(post);
             db.SaveChanges();
@@ -175,6 +183,7 @@ namespace HospitalApplication.Controllers
         /// </example>
         [ResponseType(typeof(Post))]
         [HttpPost]
+        [Authorize]
         public IHttpActionResult DeletePost(int id)
         {
             Post post = db.Posts.Find(id);
