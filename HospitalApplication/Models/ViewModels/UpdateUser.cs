@@ -5,9 +5,9 @@ using System.Web;
 
 namespace HospitalApplication.Models.ViewModels
 {
-    public class DetailsPost
+    public class UpdateUser
     {
-        public PostDto SelectedPost { get; set; }
-        public string Author { get; set; }
+        //the existing user information
+        public UserDto SelectedUser { get; set; }
     }
 }

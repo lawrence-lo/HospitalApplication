@@ -1,0 +1,81 @@
+﻿@model HospitalApplication.Models.ViewModels.UpdateUser
+@{
+    ViewBag.Title = "Update User";
+}
+
+<div class="row">
+    <div class="col-sm-6 col-sm-offset-3">
+        <h2 class="text-center">Update User</h2>
+        <form class="form-horizontal" action="/User/Update/@Model.SelectedUser.UserID" method="POST">
+            <div style="display:none;">
+                @* Pass through the user ID *@
+                <input type="text" name="UserID" value="@Model.SelectedUser.UserID">
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 control-label" for="Email">Email</label>
+                <div class="col-sm-8">
+                    <input class="form-control" type="text" id="Email" name="Email" value="@Model.SelectedUser.Email">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 control-label" for="UserName">UserName</label>
+                <div class="col-sm-8">
+                    <input class="form-control" type="text" id="UserName" name="UserName" value="@Model.SelectedUser.UserName">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 control-label" for="LastName">Last Name</label>
+                <div class="col-sm-8">
+                    <input class="form-control" type="text" id="LastName" name="LastName" value="@Model.SelectedUser.LastName">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 control-label" for="LastName">Given Name</label>
+                <div class="col-sm-8">
+                    <input class="form-control" type="text" id="GivenName" name="GivenName" value="@Model.SelectedUser.GivenName">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 control-label" for="DateOfBirth">Date of Birth</label>
+                <div class="col-sm-8">
+                    <input class="form-control" type="date" id="DateOfBirth" name="DateOfBirth" value="@Model.SelectedUser.DateOfBirth.ToString("yyyy-MM-dd")">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 control-label" for="PhoneNumber">Phone Number</label>
+                <div class="col-sm-8">
+                    <input class="form-control" type="text" id="PhoneNumber" name="PhoneNumber" value="@Model.SelectedUser.PhoneNumber">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 control-label" for="Department">Department</label>
+                <div class="col-sm-8">
+                    <input class="form-control" type="text" id="Department" name="Department" value="@Model.SelectedUser.Department">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 control-label" for="Position">Position</label>
+                <div class="col-sm-8">
+                    <input class="form-control" type="text" id="Position" name="Position" value="@Model.SelectedUser.Position">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 control-label" for="HireDate">Hire Date</label>
+                <div class="col-sm-8">
+                    <input class="form-control" type="date" id="HireDate" name="HireDate" value="@Model.SelectedUser.HireDate.ToString("yyyy-MM-dd")">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 control-label" for="Salary">Salary</label>
+                <div class="col-sm-8">
+                    <input class="form-control" type="text" id="Salary" name="Salary" value="@Model.SelectedUser.Salary">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-4 col-sm-8">
+                    <button class="btn btn-default" type="submit">Update User</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -28,6 +29,7 @@ namespace HospitalApplication.Controllers
         /// </example>
         [HttpGet]
         [ResponseType(typeof(UserDto))]
+        [Authorize]
         public IHttpActionResult ListUsers()
         {
             List<ApplicationUser> Users = db.Users.ToList();
@@ -39,6 +41,13 @@ namespace HospitalApplication.Controllers
                 Email = a.Email,
                 PhoneNumber = a.PhoneNumber,
                 UserName = a.UserName,
+                LastName = a.LastName,
+                GivenName = a.GivenName,
+                DateOfBirth = a.DateOfBirth,
+                Department = a.Department,
+                Position = a.Position,
+                HireDate = a.HireDate,
+                Salary = a.Salary
             }));
 
             return Ok(UserDtos);
@@ -58,6 +67,7 @@ namespace HospitalApplication.Controllers
         /// GET: api/UserData/FindUser/5
         /// </example>
         [HttpGet]
+        [Authorize]
         [ResponseType(typeof(ApplicationUser))]
         public IHttpActionResult FindUser(string id)
         {
@@ -67,7 +77,14 @@ namespace HospitalApplication.Controllers
                 UserID = User.Id,
                 Email = User.Email,
                 PhoneNumber = User.PhoneNumber,
-                UserName = User.UserName
+                UserName = User.UserName,
+                LastName = User.LastName,
+                GivenName = User.GivenName,
+                DateOfBirth = User.DateOfBirth,
+                Department = User.Department,
+                Position = User.Position,
+                HireDate = User.HireDate,
+                Salary = User.Salary
             };
             if (User == null)
             {
@@ -77,9 +94,54 @@ namespace HospitalApplication.Controllers
             return Ok(UserDto);
         }
 
-        // PUT: api/UserData/5
+        /// <summary>
+        /// Returns the full name of a user in the system for post details.
+        /// </summary>
+        /// <returns>
+        /// HEADER: 200 (OK)
+        /// CONTENT: A full name of a user in the system matching up to the userID primary key
+        /// or
+        /// HEADER: 404 (NOT FOUND)
+        /// </returns>
+        /// <param name="id">The primary key of the user</param>
+        /// <example>
+        /// GET: api/UserData/FindUserForPost/5
+        /// </example>
+        [HttpGet]
+        [ResponseType(typeof(string))]
+        public IHttpActionResult FindUserForPost(string id)
+        {
+            ApplicationUser User = db.Users.Find(id);
+            string FullName = User.GivenName + " " + User.LastName;
+
+            if (User == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(FullName);
+        }
+
+        /// <summary>
+        /// Updates a particular user in the system with POST Data input
+        /// </summary>
+        /// <param name="id">Represents the user ID primary key</param>
+        /// <param name="applicationUser">JSON FORM DATA of a user</param>
+        /// <returns>
+        /// HEADER: 204 (Success, No Content Response)
+        /// or
+        /// HEADER: 400 (Bad Request)
+        /// or
+        /// HEADER: 404 (Not Found)
+        /// </returns>
+        /// <example>
+        /// POST: api/UserData/UpdateUser/5
+        /// FORM DATA: User JSON Object
+        /// </example>
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutApplicationUser(string id, ApplicationUser applicationUser)
+        [HttpPost]
+        [Authorize]
+        public IHttpActionResult UpdateUser(string id, ApplicationUser applicationUser)
         {
             if (!ModelState.IsValid)
             {
@@ -92,6 +154,15 @@ namespace HospitalApplication.Controllers
             }
 
             db.Entry(applicationUser).State = EntityState.Modified;
+            // Prevent updating other fields
+            db.Entry(applicationUser).Property("EmailConfirmed").IsModified = false;
+            db.Entry(applicationUser).Property("PasswordHash").IsModified = false;
+            db.Entry(applicationUser).Property("SecurityStamp").IsModified = false;
+            db.Entry(applicationUser).Property("PhoneNumberConfirmed").IsModified = false;
+            db.Entry(applicationUser).Property("TwoFactorEnabled").IsModified = false;
+            db.Entry(applicationUser).Property("LockoutEndDateUtc").IsModified = false;
+            db.Entry(applicationUser).Property("LockoutEnabled").IsModified = false;
+            db.Entry(applicationUser).Property("AccessFailedCount").IsModified = false;
 
             try
             {
@@ -112,9 +183,24 @@ namespace HospitalApplication.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/UserData
+        /// <summary>
+        /// Adds a user to the system
+        /// </summary>
+        /// <param name="applicationUser">JSON FORM DATA of a user</param>
+        /// <returns>
+        /// HEADER: 201 (Created)
+        /// CONTENT: User ID, User Data
+        /// or
+        /// HEADER: 400 (Bad Request)
+        /// </returns>
+        /// <example>
+        /// POST: api/UserData/AddUser
+        /// FORM DATA: Animal JSON Object
+        /// </example>
         [ResponseType(typeof(ApplicationUser))]
-        public IHttpActionResult PostApplicationUser(ApplicationUser applicationUser)
+        [HttpPost]
+        [Authorize]
+        public IHttpActionResult AddUser(ApplicationUser applicationUser)
         {
             if (!ModelState.IsValid)
             {
@@ -142,15 +228,36 @@ namespace HospitalApplication.Controllers
             return CreatedAtRoute("DefaultApi", new { id = applicationUser.Id }, applicationUser);
         }
 
-        // DELETE: api/UserData/5
+        /// <summary>
+        /// Delete a user from the system by it's ID.
+        /// </summary>
+        /// <param name="id">The primary key of the user</param>
+        /// <returns>
+        /// HEADER: 200 (OK)
+        /// or
+        /// HEADER: 404 (NOT FOUND)
+        /// </returns>
+        /// <example>
+        /// POST: api/UserData/DeleteUser/5
+        /// FORM DATA: (empty)
+        /// </example>
         [ResponseType(typeof(ApplicationUser))]
-        public IHttpActionResult DeleteApplicationUser(string id)
+        [HttpPost]
+        [Authorize]
+        public IHttpActionResult DeleteUser(string id)
         {
             ApplicationUser applicationUser = db.Users.Find(id);
             if (applicationUser == null)
             {
                 return NotFound();
             }
+
+            // Remove related posts
+            foreach (var post in db.Posts.Where(a => a.UserID == id))
+            {
+                db.Posts.Remove(post);
+            }
+            db.SaveChanges();
 
             db.Users.Remove(applicationUser);
             db.SaveChanges();

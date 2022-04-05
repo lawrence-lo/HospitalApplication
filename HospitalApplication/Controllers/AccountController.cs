@@ -151,7 +151,9 @@ namespace HospitalApplication.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var date = new DateTime(1900, 1, 1);
+
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, DateOfBirth = date, HireDate = date};
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {

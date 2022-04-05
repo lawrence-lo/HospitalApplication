@@ -11,12 +11,11 @@ using System.Web.Script.Serialization;
 
 namespace HospitalApplication.Controllers
 {
-    public class PostController : Controller
+    public class UserController : Controller
     {
         private static readonly HttpClient client;
         private JavaScriptSerializer jss = new JavaScriptSerializer();
-
-        static PostController()
+        static UserController()
         {
             HttpClientHandler handler = new HttpClientHandler()
             {
@@ -47,42 +46,40 @@ namespace HospitalApplication.Controllers
             return;
         }
 
-        // GET: Post/List
+        // GET: User/List
+        [Authorize]
         public ActionResult List()
         {
-            //objective: communicate with our post data api to retrieve a list of posts
-            //curl https://localhost:44325/api/postdata/listposts
+            GetApplicationCookie();//get token credentials
+            //objective: communicate with our user data api to retrieve a list of posts
+            //curl https://localhost:44325/api/userdata/listusers
 
-            string url = "postdata/listposts";
+            string url = "userdata/listusers";
             HttpResponseMessage response = client.GetAsync(url).Result;
 
-            IEnumerable<PostDto> posts = response.Content.ReadAsAsync<IEnumerable<PostDto>>().Result;
 
-            return View(posts);
+            IEnumerable<UserDto> users = response.Content.ReadAsAsync<IEnumerable<UserDto>>().Result;
+
+            return View(users);
         }
 
-        // GET: Post/Details/5
-        public ActionResult Details(int id)
+        // GET: User/Details/5
+        [Authorize]
+        public ActionResult Details(string id)
         {
-            DetailsPost ViewModel = new DetailsPost();
+            GetApplicationCookie();//get token credentials
 
-            //objective: communicate with our post data api to retrieve one post
-            //curl https://localhost:44325/api/postdata/findpost/{id}
+            DetailsUser ViewModel = new DetailsUser();
 
-            string url = "postdata/findpost/" + id;
+            //objective: communicate with our user data api to retrieve one user
+            //curl https://localhost:44325/api/userdata/finduser/{id}
+
+            string url = "userdata/finduser/" + id;
             HttpResponseMessage response = client.GetAsync(url).Result;
 
-            PostDto SelectedPost = response.Content.ReadAsAsync<PostDto>().Result;
+            UserDto SelectedUser = response.Content.ReadAsAsync<UserDto>().Result;
 
-            ViewModel.SelectedPost = SelectedPost;
-
-            // Get the name of author
-            url = "userdata/finduserforpost/" + SelectedPost.UserID;
-            HttpResponseMessage responseAuthor= client.GetAsync(url).Result;
-
-            string Author = responseAuthor.Content.ReadAsAsync<string>().Result;
-
-            ViewModel.Author = Author;
+            ViewModel.SelectedUser = SelectedUser;
 
             return View(ViewModel);
         }
@@ -92,6 +89,7 @@ namespace HospitalApplication.Controllers
             return View();
         }
 
+        /* User is created from account registration
         // GET: Post/New
         [Authorize]
         public ActionResult New()
@@ -99,55 +97,45 @@ namespace HospitalApplication.Controllers
             return View();
         }
 
-        // POST: Post/Create
+        // POST: User/Create
         [HttpPost]
-        [Authorize]
-        public ActionResult Create(Post post)
+        public ActionResult Create(FormCollection collection)
         {
-            GetApplicationCookie();//get token credentials
-            //objective: add a new post into our system using the API
-            //curl -H "Content-Type:application/json" -d @post.json https://localhost:44325/api/postdata/addpost 
-            string url = "postdata/addpost";
-
-            string jsonpayload = jss.Serialize(post);
-
-            HttpContent content = new StringContent(jsonpayload);
-            content.Headers.ContentType.MediaType = "application/json";
-
-            HttpResponseMessage response = client.PostAsync(url, content).Result;
-
-            if (response.IsSuccessStatusCode)
+            try
             {
-                return RedirectToAction("List");
+                // TODO: Add insert logic here
+
+                return RedirectToAction("Index");
             }
-            else
+            catch
             {
-                return RedirectToAction("Error");
+                return View();
             }
         }
+        */
 
-        // GET: Post/Edit/5
+        // GET: User/Edit/5
         [Authorize]
-        public ActionResult Edit(int id)
+        public ActionResult Edit(string id)
         {
-            UpdatePost ViewModel = new UpdatePost();
+            UpdateUser ViewModel = new UpdateUser();
 
-            //the existing post information
-            string url = "postdata/findpost/" + id;
+            //the existing user information
+            string url = "userdata/finduser/" + id;
             HttpResponseMessage response = client.GetAsync(url).Result;
-            PostDto SelectedPost = response.Content.ReadAsAsync<PostDto>().Result;
-            ViewModel.SelectedPost = SelectedPost;
+            UserDto SelectedUser = response.Content.ReadAsAsync<UserDto>().Result;
+            ViewModel.SelectedUser = SelectedUser;
 
             return View(ViewModel);
         }
 
-        // POST: Post/Update/5
+        // POST: User/Update/5
         [HttpPost]
-        public ActionResult Update(int id, Post post)
+        public ActionResult Update(string id, ApplicationUser user)
         {
             GetApplicationCookie();//get token credentials
-            string url = "postdata/updatepost/" + id;
-            string jsonpayload = jss.Serialize(post);
+            string url = "userdata/updateuser/" + id;
+            string jsonpayload = jss.Serialize(user);
             HttpContent content = new StringContent(jsonpayload);
             content.Headers.ContentType.MediaType = "application/json";
             HttpResponseMessage response = client.PostAsync(url, content).Result;
@@ -162,23 +150,23 @@ namespace HospitalApplication.Controllers
             }
         }
 
-        // GET: Post/Delete/5
+        // GET: User/Delete/5
         [Authorize]
-        public ActionResult DeleteConfirm(int id)
+        public ActionResult DeleteConfirm(string id)
         {
-            string url = "postdata/findpost/" + id;
+            string url = "userdata/finduser/" + id;
             HttpResponseMessage response = client.GetAsync(url).Result;
-            PostDto selectedpost = response.Content.ReadAsAsync<PostDto>().Result;
-            return View(selectedpost);
+            UserDto selecteduser = response.Content.ReadAsAsync<UserDto>().Result;
+            return View(selecteduser);
         }
 
-        // POST: Post/Delete/5
+        // POST: User/Delete/5
         [HttpPost]
         [Authorize]
-        public ActionResult Delete(int id)
+        public ActionResult Delete(string id)
         {
             GetApplicationCookie();//get token credentials
-            string url = "postdata/deletepost/" + id;
+            string url = "userdata/deleteuser/" + id;
             HttpContent content = new StringContent("");
             content.Headers.ContentType.MediaType = "application/json";
             HttpResponseMessage response = client.PostAsync(url, content).Result;

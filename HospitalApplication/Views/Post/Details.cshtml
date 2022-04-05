@@ -14,8 +14,15 @@
                         <div class="col-sm-8">@Model.SelectedPost.Title</div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-4">UserID</div>
-                        <div class="col-sm-8">@Model.SelectedPost.UserID</div>
+                        <div class="col-sm-4">Author</div>
+                        @if (@Model.Author == " ")
+                        {
+                            <div class="col-sm-8">Anonymous</div>
+                        }
+                        else
+                        {
+                            <div class="col-sm-8">@Model.Author</div>
+                        }
                     </div>
                     <div class="row">
                         <div class="col-sm-4">Published On</div>
