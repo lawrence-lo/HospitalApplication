@@ -39,6 +39,8 @@ namespace HospitalApplication.Models
         public DbSet<Donation> Donations { get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<Job> Jobs { get; set; }
+        public DbSet<Patient> Patients { get; set; }
+        public DbSet<Appointment> Appointments { get; set; }
 
         public static ApplicationDbContext Create()
         {
