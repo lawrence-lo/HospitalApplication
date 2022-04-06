@@ -188,6 +188,7 @@
     <Compile Include="Controllers\DonorController.cs" />
     <Compile Include="Controllers\DonorDataController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\HospitalPatientDataController.cs" />
     <Compile Include="Controllers\JobController.cs" />
     <Compile Include="Controllers\JobDataController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
