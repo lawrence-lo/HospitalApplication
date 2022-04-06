@@ -18,6 +18,8 @@ namespace HospitalApplication.Controllers
 
         // GET: api/DonorData/ListDonors
         [HttpGet]
+        [ResponseType(typeof(DonorDto))]
+
         public IEnumerable<DonorDto> ListDonors()
         {
             List<Donor> Donors = db.Donors.ToList();
@@ -36,7 +38,7 @@ namespace HospitalApplication.Controllers
 
         // GET: api/DonorData/FindDonor/5
         [HttpGet]
-        [ResponseType(typeof(Donor))]
+        [ResponseType(typeof(DonorDto))]
         public IHttpActionResult FindDonor(int id)
         {
             Donor Donor = db.Donors.Find(id);

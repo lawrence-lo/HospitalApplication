@@ -54,8 +54,6 @@ namespace HospitalApplication.Controllers
             return Ok(DepartmentDtos);
         }
 
- 
-
         // GET: api/DepartmentData/FindDepartment/5
         [ResponseType(typeof(Department))]
         [HttpGet]
@@ -80,6 +78,7 @@ namespace HospitalApplication.Controllers
         // POST: api/DepartmentData/UpdateDepartment/5
         [ResponseType(typeof(void))]
         [HttpPost]
+        [Authorize]
         public IHttpActionResult UpdateDepartment(int id, Department department)
         {
             if (!ModelState.IsValid)
@@ -116,6 +115,7 @@ namespace HospitalApplication.Controllers
         // POST: api/DepartmentData/AddDepartment
         [ResponseType(typeof(Department))]
         [HttpPost]
+        [Authorize]
         public IHttpActionResult AddDepartment(Department department)
         {
             if (!ModelState.IsValid)
@@ -132,6 +132,7 @@ namespace HospitalApplication.Controllers
         // POST: api/DepartmentData/DeleteDepartment/5
         [ResponseType(typeof(Department))]
         [HttpPost]
+        [Authorize]
         public IHttpActionResult DeleteDepartment(int id)
         {
             Department department = db.Departments.Find(id);

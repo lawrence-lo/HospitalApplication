@@ -18,7 +18,13 @@ namespace HospitalApplication.Controllers
 
         static JobController()
         {
-            client = new HttpClient();
+            HttpClientHandler handler = new HttpClientHandler()
+            {
+                AllowAutoRedirect = false,
+                UseCookies = false
+            };
+
+            client = new HttpClient(handler);
             client.BaseAddress = new Uri("https://localhost:44325/api/");
         }
 
@@ -73,6 +79,7 @@ namespace HospitalApplication.Controllers
         }
 
         // GET: Job/New
+        [Authorize]
         public ActionResult New()
         {
             //information about all departments
@@ -87,8 +94,10 @@ namespace HospitalApplication.Controllers
 
         // POST: Job/Create
         [HttpPost]
+        [Authorize]
         public ActionResult Create(Job job)
         {
+            GetApplicationCookie();
             string url = "jobdata/addjob";
             string jsonpayload = jss.Serialize(job);
 
@@ -150,6 +159,7 @@ namespace HospitalApplication.Controllers
         }
 
         // GET: Job/Delete/5
+        [Authorize]
         public ActionResult DeleteConfirm(int id)
         {
             string url = "jobdata/findjob/" + id;
@@ -160,8 +170,10 @@ namespace HospitalApplication.Controllers
 
         // POST: Job/Delete/5
         [HttpPost]
+        [Authorize]
         public ActionResult Delete(int id)
         {
+            GetApplicationCookie();
             string url = "jobdata/deletejob/" + id;
             HttpContent content = new StringContent("");
             content.Headers.ContentType.MediaType = "application/json";

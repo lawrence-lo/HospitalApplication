@@ -1,10 +1,55 @@
-﻿@model HospitalApplication.Models.DepartmentDto
+﻿@model HospitalApplication.Models.ViewModels.DetailsDepartment
 
 @{
     ViewBag.Title = "Details";
 }
 
-<a href="/Department/List"></a>
-<h2>@Model.DeptName</h2>
-<div>@Model.DeptDescription</div>
-<div>@Model.DeptLocation</div>
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <div class="list-group">
+            <div class="list-group-item">
+                <h2 class="list-group-item-heading text-center">Department Details</h2>
+                <div class="list-group-item-text">
+                    <div class="row">
+                        <div class="col-sm-4">Name</div>
+                        <div class="col-sm-8">@Model.SelectedDepartment.DeptName</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">Location</div>
+                        <div class="col-sm-8">@Model.SelectedDepartment.DeptLocation</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">Description</div>
+                        <div class="col-sm-8">@Model.SelectedDepartment.DeptDescription</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">Staff Member</div>
+                        <div class="col-sm-8">
+                            @foreach (var department in Model.DepartmentUsers)
+                            {
+                                if (department.Department == Model.SelectedDepartment.DeptID)
+                                {
+                                    <div>@department.GivenName @department.LastName</div>
+                                }
+                                else
+                                {
+                                    <div></div>
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="text-center">
+    <a class="btn btn-info" href="/Department/Edit/@Model.SelectedDepartment.DeptID" role="button">Update</a>
+    <a class="btn btn-danger" href="/Department/DeleteConfirm/@Model.SelectedDepartment.DeptID" role="button">Delete</a>
+</div>
+
+<div class="col-md-12 text-center">
+    <a class="primary-light" href="/Department/List">Back to list</a>
+</div>
+

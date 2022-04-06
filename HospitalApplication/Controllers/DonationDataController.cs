@@ -28,14 +28,44 @@ namespace HospitalApplication.Controllers
                 DonationID = d.DonationID,
                 DonationDescription = d.DonationDescription,
                 DonationDate = d.DonationDate,
-                DonationAmount = d.DonationAmount
+                DonationAmount = d.DonationAmount,
+                DonorID=d.Donor.DonorID,
+                DonorName= d.Donor.DonorName
+            }));
+            return DonationDtos;
+        }
+
+        /// <summary>
+        /// Gather information about all donations related to 
+        /// </summary>
+        /// <returns>
+        /// All Donations in the databas, including thier associated Donor
+        /// </returns>
+        /// <param name="id">Donor ID.</param>
+
+        /// GET: api/DonationData/ListDonationsForDonor
+        [HttpGet]
+        [ResponseType(typeof(DonationDto))]
+        public IEnumerable<DonationDto> ListDonationsForDonor(int id)
+        {
+            List<Donation> Donations = db.Donations.Where(d=>d.DonorID==id).ToList();
+            List<DonationDto> DonationDtos = new List<DonationDto>();
+
+            Donations.ForEach(d => DonationDtos.Add(new DonationDto()
+            {
+                DonationID = d.DonationID,
+                DonationDescription = d.DonationDescription,
+                DonationDate = d.DonationDate,
+                DonationAmount = d.DonationAmount,
+                DonorID = d.Donor.DonorID,
+                DonorName = d.Donor.DonorName
             }));
             return DonationDtos;
         }
 
         // GET: api/DonationData/FindDonation/5
         [HttpGet]
-        [ResponseType(typeof(Donation))]
+        [ResponseType(typeof(DonationDto))]
         public IHttpActionResult FindDonation(int id)
         {
             Donation Donation = db.Donations.Find(id);
