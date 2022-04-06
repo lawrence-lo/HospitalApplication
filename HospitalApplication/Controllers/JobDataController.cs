@@ -36,6 +36,25 @@ namespace HospitalApplication.Controllers
             return JobDtos;
         }
 
+        [HttpGet]
+        [ResponseType(typeof(JobDto))]
+        public IHttpActionResult ListJobsForDepartment(int id)
+        {
+            List<Job> Jobs = db.Jobs.Where(j => j.DeptID == id).ToList();
+            List<JobDto> JobDtos = new List<JobDto>();
+
+            Jobs.ForEach(j => JobDtos.Add(new JobDto()
+            {
+                JobID = j.JobID,
+                JobName = j.JobName,
+                JobSalary = j.JobSalary,
+                JobHour = j.JobHour,
+                JobDescription = j.JobDescription
+            }));
+
+            return Ok(JobDtos);
+        }
+
         // GET: api/JobData/FindJob/5
         [ResponseType(typeof(Job))]
         [HttpGet]

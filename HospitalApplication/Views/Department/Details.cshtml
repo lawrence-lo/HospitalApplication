@@ -9,6 +9,7 @@
         <div class="list-group">
             <div class="list-group-item">
                 <h2 class="list-group-item-heading text-center">Department Details</h2>
+                <br />
                 <div class="list-group-item-text">
                     <div class="row">
                         <div class="col-sm-4">Name</div>
@@ -22,20 +23,36 @@
                         <div class="col-sm-4">Description</div>
                         <div class="col-sm-8">@Model.SelectedDepartment.DeptDescription</div>
                     </div>
+                    <hr />
                     <div class="row">
                         <div class="col-sm-4">Staff Member</div>
                         <div class="col-sm-8">
-                            @foreach (var department in Model.DepartmentUsers)
-                            {
-                                if (department.Department == Model.SelectedDepartment.DeptID)
+                            <ol class="list-group list-group-numbered">
+                                @foreach (var department in Model.DepartmentUsers)
                                 {
-                                    <div>@department.GivenName @department.LastName</div>
+                                    if (department.Department == Model.SelectedDepartment.DeptID)
+                                    {
+                                        <li class="list-group-item">@department.GivenName @department.LastName</li>                                    }
+                                    else
+                                    {
+                                        <li></li>
+                                    }
                                 }
-                                else
+                            </ol>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="col-sm-4">Job</div>
+                        <div class="col-sm-8">
+                            <ol class="list-group list-group-numbered">
+                                @foreach (var department in Model.DepartmentJobs)
                                 {
-                                    <div></div>
+                                    <li class="list-group-item">
+                                        <a href="/Job/Details/@department.JobID">@department.JobName</a>
+                                    </li>                                   
                                 }
-                            }
+                            </ol>
                         </div>
                     </div>
                 </div>

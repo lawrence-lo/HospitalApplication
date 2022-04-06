@@ -4,11 +4,45 @@
     ViewBag.Title = "Details";
 }
 
-<a href="/Job/List">Go back to list</a>
-<a href="/Job/Edit/@Model.JobID">Update</a>
-<a href="/Job/DeleteConfirm/@Model.JobID">Delete</a>
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <div class="list-group">
+            <div class="list-group-item">
+                <h2 class="list-group-item-heading text-center">Job Details</h2>
+                <br />
+                <div class="list-group-item-text">
+                    <div class="row">
+                        <div class="col-sm-4">Name</div>
+                        <div class="col-sm-8">@Model.JobName</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">Department</div>
+                        <div class="col-sm-8">@Model.DeptName</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">Salary</div>
+                        <div class="col-sm-8">@Model.JobSalary</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">Working Hour</div>
+                        <div class="col-sm-8">@Model.JobHour</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">Description</div>
+                        <div class="col-sm-8">@Model.JobDescription</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-<h2>@Model.JobName</h2>
-<div>@Model.JobDescription</div>
-<div>@Model.DeptName</div>
+<div class="text-center">
+    <a class="btn btn-info" href="/Job/Edit/@Model.JobID" role="button">Update</a>
+    <a class="btn btn-danger" href="/Job/DeleteConfirm/@Model.JobID" role="button">Delete</a>
+</div>
+
+<div class="col-md-12 text-center">
+    <a class="primary-light" href="/Job/List">Back to list</a>
+</div>
 

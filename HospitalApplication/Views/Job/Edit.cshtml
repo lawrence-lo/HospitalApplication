@@ -20,12 +20,14 @@
             </div>
             <div class="form-group">
                 <label class="col-sm-4 control-label" for="Name">Department</label>
-                <select class="form-control" name="DeptID">
-                    @foreach (var department in Model.DepartmentOptions) 
-                    {
-                        <option value="@department.DeptID">@department.DeptName</option>
-                    }
-                </select>
+                <div class="col-sm-8">
+                    <select class="form-control" name="DeptID">
+                        @foreach (var department in Model.DepartmentOptions)
+                        {
+                            <option value="@department.DeptID">@department.DeptName</option>
+                        }
+                    </select>
+                </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-4 control-label" for="JobSalary">Salary</label>
@@ -40,7 +42,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-4 control-label" for="JobDescription">Content</label>
+                <label class="col-sm-4 control-label" for="JobDescription">Description</label>
                 <div class="col-sm-8">
                     <textarea class="form-control" id="JobDescription" name="JobDescription" rows="5">@Model.SelectedJob.JobDescription</textarea>
                 </div>
