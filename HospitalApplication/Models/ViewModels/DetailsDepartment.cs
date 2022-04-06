@@ -5,12 +5,9 @@ using System.Web;
 
 namespace HospitalApplication.Models.ViewModels
 {
-    public class UpdateDepartment
+    public class DetailsDepartment
     {
-        //existing department information
         public DepartmentDto SelectedDepartment { get; set; }
-
-        //all employees to choose from when updating this department
         public IEnumerable<UserDto> DepartmentUsers { get; set; }
     }
 }

@@ -65,15 +65,21 @@ namespace HospitalApplication.Controllers
         // GET: Department/Details/5
         public ActionResult Details(int id)
         {
+            DetailsDepartment ViewModel = new DetailsDepartment();
+
             string url = "departmentdata/finddepartment/" + id;
             HttpResponseMessage response = client.GetAsync(url).Result;
 
-            DepartmentDto selecteddepartment = response.Content.ReadAsAsync<DepartmentDto>().Result;
+            DepartmentDto SelectedDepartment = response.Content.ReadAsAsync<DepartmentDto>().Result;
+            ViewModel.SelectedDepartment = SelectedDepartment;
 
-            /* To-do */
-            //show employees related to this department
+            //send request to gather info about users related to a particular department
+            url = "userdata/listusersfordepartment/" + id;
+            response = client.GetAsync(url).Result;
+            IEnumerable<UserDto> DepartmentUsers = response.Content.ReadAsAsync<IEnumerable<UserDto>>().Result;
+            ViewModel.DepartmentUsers = DepartmentUsers;
 
-            return View(selecteddepartment);
+            return View(ViewModel);
         }
 
         public ActionResult Error()
@@ -123,8 +129,11 @@ namespace HospitalApplication.Controllers
             DepartmentDto SelectedDepartment = response.Content.ReadAsAsync<DepartmentDto>().Result;
             ViewModel.SelectedDepartment = SelectedDepartment;
 
-            /* To-do */
-            //include all employees to choose from when updating this department
+            //send request to gather info about users related to a particular department
+            url = "userdata/listusersfordepartment/" + id;
+            response = client.GetAsync(url).Result;
+            IEnumerable<UserDto> DepartmentUsers = response.Content.ReadAsAsync<IEnumerable<UserDto>>().Result;
+            ViewModel.DepartmentUsers = DepartmentUsers;
 
             return View(ViewModel);
         }
