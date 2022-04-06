@@ -10,8 +10,11 @@
         {
             <div class="list-group text-center">
                 <a href="/User/Details/@user.UserID" class="list-group-item">
-                    <h4 class="list-group-item-heading">@user.UserName</h4>
-                    <p class="list-group-item-text">@user.Email</p>
+                    <h4 class="list-group-item-heading">@user.Email</h4>
+                    @if(@user.GivenName != null && @user.LastName != null)
+                    {
+                        <p class="list-group-item-text">@user.GivenName @user.LastName</p>
+                    }
                 </a>
             </div>
         }
