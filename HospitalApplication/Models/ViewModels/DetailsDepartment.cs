@@ -10,5 +10,6 @@ namespace HospitalApplication.Models.ViewModels
         public DepartmentDto SelectedDepartment { get; set; }
         public IEnumerable<UserDto> DepartmentUsers { get; set; }
         public IEnumerable<JobDto> DepartmentJobs { get; set; }
+        public IEnumerable<DonationDto> DepartmentDonations { get; set; }
     }
 }

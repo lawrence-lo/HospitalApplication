@@ -32,7 +32,8 @@
                                 {
                                     if (department.Department == Model.SelectedDepartment.DeptID)
                                     {
-                                        <li class="list-group-item">@department.GivenName @department.LastName</li>                                    }
+                                        <li class="list-group-item">@department.GivenName @department.LastName</li>
+ }
                                     else
                                     {
                                         <li></li>
@@ -50,7 +51,22 @@
                                 {
                                     <li class="list-group-item">
                                         <a href="/Job/Details/@department.JobID">@department.JobName</a>
-                                    </li>                                   
+                                    </li>
+
+                                }
+                            </ol>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="col-sm-4">Donation</div>
+                        <div class="col-sm-8">
+                            <ol class="list-group list-group-numbered">
+                                @foreach (var department in Model.DepartmentDonations)
+                                {
+                                    <li class="list-group-item">
+                                        <a href="/Donation/Details/@department.DonationID">@department.DonationDescription</a>
+                                    </li>
                                 }
                             </ol>
                         </div>

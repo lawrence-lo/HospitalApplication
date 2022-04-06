@@ -24,24 +24,6 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-4 control-label" for="DeptLocation">Head</label>
-                <div class="col-sm-8">
-                    <select class="form-control" name="UserID">
-                        @foreach (var department in Model.DepartmentUsers)
-                        {
-                            if (department.Department == Model.SelectedDepartment.DeptID)
-                            {
-                                <option value="@department.UserID">@department.GivenName @department.LastName</option>
-                            }
-                            else
-                            {
-                                <option></option>
-                            }
-                        }
-                    </select>
-                </div>
-            </div>
-            <div class="form-group">
                 <label class="col-sm-4 control-label" for="DeptDescription">Description</label>
                 <div class="col-sm-8">
                     <textarea class="form-control" id="DeptDescription" name="DeptDescription" rows="5">@Model.SelectedDepartment.DeptDescription</textarea>
