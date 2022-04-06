@@ -53,8 +53,9 @@ namespace HospitalApplication.Controllers
             //Showcase information about the donation related to this Donor
 
             url = "donationdata/listdonationsfordonor/" + id;
-            //IEnumerable<DonationDto> RelatedDonations = ;
-            //ViewModel.RelatedDonations = RelatedDonations;
+            response = client.GetAsync(url).Result;
+            IEnumerable<DonationDto> RelatedDonations = response.Content.ReadAsAsync<IEnumerable<DonationDto>>().Result;
+            ViewModel.RelatedDonations = RelatedDonations;
             return View(ViewModel);
         }
 
