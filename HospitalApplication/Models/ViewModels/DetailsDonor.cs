@@ -8,6 +8,7 @@ namespace HospitalApplication.Models.ViewModels
     public class DetailsDonor
     {
         public DonorDto SelectedDonor { get; set; }
+        public IEnumerable<DonationDto> RelatedDonations { get; set;}
 
     }
 }

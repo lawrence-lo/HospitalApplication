@@ -1,5 +1,19 @@
 ﻿/* make changes to the !default Bootstrap variables */
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap');
+$font-family-sans-serif: 'Open Sans', sans-serif;
 
+// Reference: https://huemint.com/bootstrap-basic/#palette=d8ebe6-ffffff-173b6e-e52f3c-e5654a-f5e54d
+$brand-primary: #154a46;
+$brand-success: #09ac46;
+$brand-info: #c1c71c;
+$brand-warning: #f0c809;
+$brand-danger: #f60337;
+
+$navbar-inverse-link-color: #154a46;
+$navbar-inverse-link-hover-color: #38799b;
+$navbar-inverse-brand-hover-color: #38799b;
+$navbar-inverse-bg: #dfdfaa;
+$navbar-inverse-border: transparent;
 
 /* import Bootstrap to set the changes! */
 @import "bootstrap.scss";

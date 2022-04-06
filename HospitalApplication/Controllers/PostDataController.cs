@@ -32,7 +32,36 @@ namespace HospitalApplication.Controllers
         [ResponseType(typeof(PostDto))]
         public IEnumerable<PostDto> ListPosts()
         {
-            List<Post> Posts = db.Posts.ToList();
+            List<Post> Posts = db.Posts.OrderByDescending(s => s.DateCreated).ToList();
+            List<PostDto> PostDtos = new List<PostDto>();
+
+            Posts.ForEach(a => PostDtos.Add(new PostDto()
+            {
+                PostID = a.PostID,
+                Title = a.Title,
+                DateCreated = a.DateCreated,
+                Content = a.Content,
+                UserID = a.UserID
+            }));
+
+            return PostDtos;
+        }
+
+        /// <summary>
+        /// Returns latest 3 posts in the system.
+        /// </summary>
+        /// <returns>
+        /// HEADER: 200 (OK)
+        /// CONTENT: latest 3 posts in the database, including their associated UserIDs.
+        /// </returns>
+        /// <example>
+        /// GET: api/PostData/ListPostsForHome
+        /// </example>
+        [HttpGet]
+        [ResponseType(typeof(PostDto))]
+        public IEnumerable<PostDto> ListPostsForHome()
+        {
+            List<Post> Posts = db.Posts.OrderByDescending(s => s.DateCreated).Take(3).ToList();
             List<PostDto> PostDtos = new List<PostDto>();
 
             Posts.ForEach(a => PostDtos.Add(new PostDto()

@@ -7,9 +7,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HospitalApplication.Models
 {
-    public class Patient
+    public class HospitalPatient
     {
-
         [Key]
         public int PatientID { get; set; }
         public string Name { get; set; }
@@ -20,11 +19,10 @@ namespace HospitalApplication.Models
         // One to many relationship between Patient and Appointment
         //A patient can have zero, one or many appointments
         //An appointment can belong to only one patient
-        public ICollection<Appointment> Appointments { get; set; }
-
+        public ICollection<HospitalAppointment> HospitalAppointments { get; set; }
     }
 
-    public class PatientDto
+    public class HospitalPatientDto
     {
         public int PatientID { get; set; }
         public string Name { get; set; }

@@ -9,5 +9,7 @@ namespace HospitalApplication.Models.ViewModels
     {
         public DonationDto SelectedDonation { get; set; }
 
+        //list of Donors
+        public IEnumerable<DonorDto> DonorOptions { get; set; }
     }
 }

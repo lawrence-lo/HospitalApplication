@@ -214,11 +214,29 @@
     <Compile Include="Migrations\202204051701302_user-department.Designer.cs">
       <DependentUpon>202204051701302_user-department.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202204052207344_UserDto.cs" />
+    <Compile Include="Migrations\202204052207344_UserDto.Designer.cs">
+      <DependentUpon>202204052207344_UserDto.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202204052259236_UserDto-update.cs" />
+    <Compile Include="Migrations\202204052259236_UserDto-update.Designer.cs">
+      <DependentUpon>202204052259236_UserDto-update.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202204060056558_hospitalPatientAppointmentTables.cs" />
+    <Compile Include="Migrations\202204060056558_hospitalPatientAppointmentTables.Designer.cs">
+      <DependentUpon>202204060056558_hospitalPatientAppointmentTables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202204060133354_dept-donation.cs" />
+    <Compile Include="Migrations\202204060133354_dept-donation.Designer.cs">
+      <DependentUpon>202204060133354_dept-donation.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\HospitalAppointment.cs" />
     <Compile Include="Models\Department.cs" />
     <Compile Include="Models\Donation.cs" />
     <Compile Include="Models\Donor.cs" />
+    <Compile Include="Models\HospitalPatient.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Job.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -450,6 +468,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202204051701302_user-department.resx">
       <DependentUpon>202204051701302_user-department.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202204052207344_UserDto.resx">
+      <DependentUpon>202204052207344_UserDto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202204052259236_UserDto-update.resx">
+      <DependentUpon>202204052259236_UserDto-update.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202204060056558_hospitalPatientAppointmentTables.resx">
+      <DependentUpon>202204060056558_hospitalPatientAppointmentTables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202204060133354_dept-donation.resx">
+      <DependentUpon>202204060133354_dept-donation.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

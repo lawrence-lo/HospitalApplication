@@ -50,8 +50,11 @@ namespace HospitalApplication.Controllers
 
             ViewModel.SelectedDonor = SelectedDonor;
 
-            //Todo: put user info in viewmodel
+            //Showcase information about the donation related to this Donor
 
+            url = "donationdata/listdonationsfordonor/" + id;
+            //IEnumerable<DonationDto> RelatedDonations = ;
+            //ViewModel.RelatedDonations = RelatedDonations;
             return View(ViewModel);
         }
 
