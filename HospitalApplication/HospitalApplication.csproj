@@ -226,10 +226,6 @@
     <Compile Include="Migrations\202204060056558_hospitalPatientAppointmentTables.Designer.cs">
       <DependentUpon>202204060056558_hospitalPatientAppointmentTables.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202204060133354_dept-donation.cs" />
-    <Compile Include="Migrations\202204060133354_dept-donation.Designer.cs">
-      <DependentUpon>202204060133354_dept-donation.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\HospitalAppointment.cs" />
@@ -442,6 +438,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\HospitalAppointmentData\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -477,9 +474,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202204060056558_hospitalPatientAppointmentTables.resx">
       <DependentUpon>202204060056558_hospitalPatientAppointmentTables.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202204060133354_dept-donation.resx">
-      <DependentUpon>202204060133354_dept-donation.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
