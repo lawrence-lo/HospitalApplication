@@ -188,6 +188,7 @@
     <Compile Include="Controllers\DonorController.cs" />
     <Compile Include="Controllers\DonorDataController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\HospitalPatientController.cs" />
     <Compile Include="Controllers\HospitalPatientDataController.cs" />
     <Compile Include="Controllers\JobController.cs" />
     <Compile Include="Controllers\JobDataController.cs" />
@@ -440,6 +441,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\HospitalAppointmentData\" />
+    <Folder Include="Views\HospitalPatient\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

@@ -96,7 +96,7 @@ namespace HospitalApplication.Controllers
         /// Drug Json Object
         /// </example>
 
-        [Route("api/HospitalPatientData/updatePatient/{id}")]
+        [Route("api/HospitalPatientData/UpdateHospitalPatient/{id}")]
         [ResponseType(typeof(void))]
         [HttpPost]
         public IHttpActionResult UpdateHospitalPatient(int id, HospitalPatient hospitalPatient)
