@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HospitalApplication.Models
 {
-    public class Appointment
+    public class HospitalAppointment
     {
         [Key]
         public int AppointmentID { get; set; }
@@ -17,9 +17,9 @@ namespace HospitalApplication.Models
 
         //each appointment entity points to one patient entity
 
-        [ForeignKey("Patient")]
+        [ForeignKey("HospitalPatient")]
         public int PatientID { get; set; }
-        public virtual Patient Patient { get; set; }
+        public virtual HospitalPatient HospitalPatient { get; set; }
 
         //each appoinment entity is created by or pointing to one user/employee
         [ForeignKey("ApplicationUser")]
@@ -27,7 +27,7 @@ namespace HospitalApplication.Models
         public virtual ApplicationUser ApplicationUser { get; set; }
     }
 
-    public class AppointmentDto
+    public class HospitalAppointmentDto
     {
         public int AppointmentID { get; set; }
         public DateTime DateCreated { get; set; }
@@ -36,6 +36,4 @@ namespace HospitalApplication.Models
         public string PatientID { get; set; }
         public string UserID { get; set; }
     }
-
-
 }
