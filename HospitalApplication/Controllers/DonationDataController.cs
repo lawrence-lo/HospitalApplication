@@ -18,7 +18,8 @@ namespace HospitalApplication.Controllers
 
         // GET: api/DonationData/ListDonations
         [HttpGet]
-        public IEnumerable<DonationDto> ListDonations()
+        [ResponseType(typeof(DonationDto))]
+        public IHttpActionResult ListDonations()
         {
             List<Donation> Donations = db.Donations.ToList();
             List<DonationDto> DonationDtos = new List<DonationDto>();
@@ -32,21 +33,21 @@ namespace HospitalApplication.Controllers
                 DonorID=d.Donor.DonorID,
                 DonorName= d.Donor.DonorName
             }));
-            return DonationDtos;
+            return Ok(DonationDtos);
         }
 
         /// <summary>
-        /// Gather information about all donations related to 
+        /// Gather information about all donations related to a donor
         /// </summary>
         /// <returns>
         /// All Donations in the databas, including thier associated Donor
         /// </returns>
         /// <param name="id">Donor ID.</param>
 
-        /// GET: api/DonationData/ListDonationsForDonor
+        /// GET: api/DonationData/ListDonationsForDonor/3
         [HttpGet]
         [ResponseType(typeof(DonationDto))]
-        public IEnumerable<DonationDto> ListDonationsForDonor(int id)
+        public IHttpActionResult ListDonationsForDonor(int id)
         {
             List<Donation> Donations = db.Donations.Where(d=>d.DonorID==id).ToList();
             List<DonationDto> DonationDtos = new List<DonationDto>();
@@ -58,9 +59,41 @@ namespace HospitalApplication.Controllers
                 DonationDate = d.DonationDate,
                 DonationAmount = d.DonationAmount,
                 DonorID = d.Donor.DonorID,
-                DonorName = d.Donor.DonorName
+                DonorName = d.Donor.DonorName,
+                DeptID = d.Department.DeptID,
+                DeptName = d.Department.DeptName
             }));
-            return DonationDtos;
+            return Ok(DonationDtos);
+        }
+        /// <summary>
+        /// Gather information about all donations related to a department
+        /// </summary>
+        /// <returns>
+        /// All Donations in the databas, including the associated Department
+        /// </returns>
+        /// <param name="id">Department ID.</param>
+
+        /// GET: api/DonationData/ListDonationsForDepartment/3
+        [HttpGet]
+        [ResponseType(typeof(DonationDto))]
+        public IHttpActionResult ListDonationsForDepartment(int id)
+        {
+            //all donation to a department which matches the ID
+            List<Donation> Donations = db.Donations.Where(d => d.DeptID == id).ToList();
+            List<DonationDto> DonationDtos = new List<DonationDto>();
+
+            Donations.ForEach(d => DonationDtos.Add(new DonationDto()
+            {
+                DonationID = d.DonationID,
+                DonationDescription = d.DonationDescription,
+                DonationDate = d.DonationDate,
+                DonationAmount = d.DonationAmount,
+                DonorID = d.Donor.DonorID,
+                DonorName = d.Donor.DonorName,
+                DeptID = d.Department.DeptID,
+                DeptName = d.Department.DeptName
+            }));
+            return Ok(DonationDtos);
         }
 
         // GET: api/DonationData/FindDonation/5
@@ -74,7 +107,9 @@ namespace HospitalApplication.Controllers
                 DonationID = Donation.DonationID,
                 DonationDescription = Donation.DonationDescription,
                 DonationDate = Donation.DonationDate,
-                DonationAmount = Donation.DonationAmount
+                DonationAmount = Donation.DonationAmount,
+                DonorID = Donation.Donor.DonorID,
+                DonorName = Donation.Donor.DonorName
 
             };
             if (Donation == null)

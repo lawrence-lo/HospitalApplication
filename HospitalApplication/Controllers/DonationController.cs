@@ -113,6 +113,11 @@ namespace HospitalApplication.Controllers
             IEnumerable<DonorDto> DonorOptions = response.Content.ReadAsAsync<IEnumerable<DonorDto>>().Result;
             ViewModel.DonorOptions = DonorOptions;
 
+            url = "departmentdata/listdepartments/";
+            response = client.GetAsync(url).Result;
+            IEnumerable<DepartmentDto> DepartmentOptions = response.Content.ReadAsAsync<IEnumerable<DepartmentDto>>().Result;
+            ViewModel.DepartmentOptions = DepartmentOptions;
+
             return View(ViewModel);
         }
 
