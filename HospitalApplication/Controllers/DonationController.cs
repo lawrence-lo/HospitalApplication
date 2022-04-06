@@ -107,6 +107,12 @@ namespace HospitalApplication.Controllers
             DonationDto SelectedDonation = response.Content.ReadAsAsync<DonationDto>().Result;
             ViewModel.SelectedDonation = SelectedDonation;
 
+            //all donors to choose from when updating this Donation
+            url = "donordata/listdonors/";
+            response = client.GetAsync(url).Result;
+            IEnumerable<DonorDto> DonorOptions = response.Content.ReadAsAsync<IEnumerable<DonorDto>>().Result;
+            ViewModel.DonorOptions = DonorOptions;
+
             return View(ViewModel);
         }
 
