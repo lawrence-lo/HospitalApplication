@@ -11,5 +11,9 @@ namespace HospitalApplication.Models.ViewModels
 
         //list of departments
         public IEnumerable<DepartmentDto> DepartmentsOptions { get; set; }
+
+        //list of posts
+        public IEnumerable<PostDto> RelatedPosts { get; set; }
+
     }
 }

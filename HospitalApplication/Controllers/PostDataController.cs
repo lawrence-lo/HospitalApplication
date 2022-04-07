@@ -77,6 +77,36 @@ namespace HospitalApplication.Controllers
         }
 
         /// <summary>
+        /// Gathers information about all posts related to a particular user ID
+        /// </summary>
+        /// <returns>
+        /// HEADER: 200 (OK)
+        /// CONTENT: all posts in the database, including their associated user matched with a particular user ID
+        /// </returns>
+        /// <param name="id">User ID</param>
+        /// <example>
+        /// GET: api/PostData/ListPostsForUser/2928318c-4f35-43c7-9fab-660bda840719
+        /// </example>
+        [HttpGet]
+        [ResponseType(typeof(PostDto))]
+        public IHttpActionResult ListPostsForUser(string id)
+        {
+            List<Post> Posts = db.Posts.Where(a => a.UserID == id).OrderByDescending(s => s.DateCreated).ToList();
+            List<PostDto> PostDtos = new List<PostDto>();
+
+            Posts.ForEach(a => PostDtos.Add(new PostDto()
+            {
+                PostID = a.PostID,
+                Title = a.Title,
+                DateCreated = a.DateCreated,
+                Content = a.Content,
+                UserID = a.UserID
+            }));
+
+            return Ok(PostDtos);
+        }
+
+        /// <summary>
         /// Returns a post in the system.
         /// </summary>
         /// <returns>

@@ -88,6 +88,13 @@ namespace HospitalApplication.Controllers
 
             ViewModel.DepartmentsOptions = DepartmentsOptions;
 
+            //get list of posts
+            url = "PostData/ListPostsForUser/" + id;
+            response = client.GetAsync(url).Result;
+            IEnumerable<PostDto> RelatedPosts = response.Content.ReadAsAsync<IEnumerable<PostDto>>().Result;
+
+            ViewModel.RelatedPosts = RelatedPosts;
+
             return View(ViewModel);
         }
 
