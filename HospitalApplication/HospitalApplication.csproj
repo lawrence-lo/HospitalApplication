@@ -230,9 +230,9 @@
     <Compile Include="Migrations\202204060056558_hospitalPatientAppointmentTables.Designer.cs">
       <DependentUpon>202204060056558_hospitalPatientAppointmentTables.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202204071951122_pendingmigration.cs" />
-    <Compile Include="Migrations\202204071951122_pendingmigration.Designer.cs">
-      <DependentUpon>202204071951122_pendingmigration.cs</DependentUpon>
+    <Compile Include="Migrations\202204072242203_new.cs" />
+    <Compile Include="Migrations\202204072242203_new.Designer.cs">
+      <DependentUpon>202204072242203_new.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -498,8 +498,8 @@
     <EmbeddedResource Include="Migrations\202204060056558_hospitalPatientAppointmentTables.resx">
       <DependentUpon>202204060056558_hospitalPatientAppointmentTables.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202204071951122_pendingmigration.resx">
-      <DependentUpon>202204071951122_pendingmigration.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202204072242203_new.resx">
+      <DependentUpon>202204072242203_new.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
