@@ -22,3 +22,34 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.body-content {
+    min-height: calc(100vh - 101px);
+}
+
+.navbar-brand {
+    margin: 0;
+    padding: 0;
+}
+
+.navbar-brand img
+{
+    max-height: 100%;
+}
+
+.carousel-inner img {
+    margin: auto;
+}
+
+.carousel-inner a {
+    color: #FFFFFF;
+}
+
+.carousel-control.left, .carousel-control.right {
+    background-image: none !important;
+    filter: none !important;
+}
+
+.carousel-control span.glyphicon {
+    color: #154a46;
+}
