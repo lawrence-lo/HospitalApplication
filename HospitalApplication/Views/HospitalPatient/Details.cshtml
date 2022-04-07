@@ -1,0 +1,51 @@
+﻿@model HospitalApplication.Models.ViewModels.DetailsPatient
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <div class="list-group">
+            <div class="list-group-item">
+                <h2 class="list-group-item-heading text-center">Patient Details</h2>
+                <div class="list-group-item-text">
+                    <div class="row">
+                        <div class="col-sm-4">Name</div>
+                        <div class="col-sm-8">@Model.SelectedPatient.Name</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">DOB</div>
+                        <div class="col-sm-8">@Model.SelectedPatient.DOB</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">Contact No</div>
+                        <div class="col-sm-8">@Model.SelectedPatient.PhoneNo</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">Appointments</div>
+                        <div class="col-sm-8">
+                            @if (Model.RelatedAppointments.Count() > 0)
+                            {
+                                foreach (var appointment in Model.RelatedAppointments)
+                                {
+                                        <div>@appointment.DoctorName @appointment.AppointmentID</div>
+                                     
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="text-center">
+    <a class="btn btn-info" href="/HospitalPatient/Edit/@Model.SelectedPatient.PatientID" role="button">Update</a>
+    <a class="btn btn-danger" href="/HospitalPatient/DeleteConfirm/@Model.SelectedPatient.PatientID" role="button">Delete</a>
+</div>
+
+<div class="col-md-12 text-center">
+    <a class="primary-light" href="/HospitalPatient/List">Back to list</a>
+</div>
+
