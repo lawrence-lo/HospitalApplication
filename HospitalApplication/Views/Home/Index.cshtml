@@ -3,11 +3,61 @@
     ViewBag.Title = "Home Page";
 }
 
-<div class="row">
-    <div class="col-sm-5 col-sm-offset-1">
-        <img src="~/Content/images/hospital.jpg" alt="Inside the hospital"/>
+@if (Model.Count() == 0)
+{
+    <h2>News</h2>
+    <p>Please create new posts to see the carousel.</p>
+}
+else
+{
+<!-- Carousel -->
+<div id="carousel-generic" class="carousel slide" data-ride="carousel">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+        <li data-target="#carousel-generic" data-slide-to="0" class="active"></li>
+        <li data-target="#carousel-generic" data-slide-to="1"></li>
+        <li data-target="#carousel-generic" data-slide-to="2"></li>
+    </ol>
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+
+        @{
+            int i = 0;
+            string imagePath;
+            foreach (var post in Model)
+            {
+                imagePath = "./Content/images/carousel" + (i + 1) + ".jpg";
+                if (i == 0)
+                {
+                    <div class="item active">
+                        <img src="@imagePath" alt="@post.Title">
+                        <div class="carousel-caption">
+                            <a href="/Post/Details/@post.PostID"><h3>@post.Title</h3></a>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="item">
+                        <img src="@imagePath" alt="@post.Title">
+                        <div class="carousel-caption">
+                            <a class="text-light" href="/Post/Details/@post.PostID"><h3>@post.Title</h3></a>
+                        </div>
+                    </div>
+                }
+                i++;
+            }
+
+        }
     </div>
-    <div class="col-sm-5">
-        <h2 class="text-center">News</h2>
-    </div>
+
+    <!-- Controls -->
+    <a class="left carousel-control" href="#carousel-generic" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+    </a>
+    <a class="right carousel-control" href="#carousel-generic" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right"></span>
+    </a>
 </div>
+}

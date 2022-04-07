@@ -79,6 +79,18 @@ namespace HospitalApplication.Controllers
             IEnumerable<UserDto> DepartmentUsers = response.Content.ReadAsAsync<IEnumerable<UserDto>>().Result;
             ViewModel.DepartmentUsers = DepartmentUsers;
 
+            //send request to gather info about jobs related to a particular department
+            url = "jobdata/listjobsfordepartment/" + id;
+            response = client.GetAsync(url).Result;
+            IEnumerable<JobDto> DepartmentJobs = response.Content.ReadAsAsync<IEnumerable<JobDto>>().Result;
+            ViewModel.DepartmentJobs = DepartmentJobs;
+
+            //send request to gather info about donations related to a particular department
+            url = "donationdata/listdonationsfordepartment/" + id;
+            response = client.GetAsync(url).Result;
+            IEnumerable<DonationDto> DepartmentDonations = response.Content.ReadAsAsync<IEnumerable<DonationDto>>().Result;
+            ViewModel.DepartmentDonations = DepartmentDonations;
+
             return View(ViewModel);
         }
 

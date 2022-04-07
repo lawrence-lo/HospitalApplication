@@ -65,6 +65,19 @@
                         <div class="col-sm-4">Salary</div>
                         <div class="col-sm-8">$@Model.SelectedUser.Salary</div>
                     </div>
+                    <div class="row">
+                        <div class="col-sm-4">Related Posts</div>
+                        <div class="col-sm-8">
+                            <ul>
+                                @foreach (var post in Model.RelatedPosts)
+                                {
+                                    <li>
+                                        <a href="/Post/Details/@post.PostID">@post.DateCreated.ToString("MMM dd, yyyy") - @post.Title</a>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

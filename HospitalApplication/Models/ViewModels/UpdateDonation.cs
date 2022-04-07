@@ -11,5 +11,6 @@ namespace HospitalApplication.Models.ViewModels
 
         //list of Donors
         public IEnumerable<DonorDto> DonorOptions { get; set; }
+        public IEnumerable<DepartmentDto> DepartmentOptions { get; set; }
     }
 }
