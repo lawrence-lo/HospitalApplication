@@ -7,17 +7,17 @@ using System.Net.Http;
 using System.Diagnostics;
 using HospitalApplication.Models;
 using System.Web.Script.Serialization;
-using HospitalApplication.Models.ViewModels;
 
 namespace HospitalApplication.Controllers
 {
-    public class HospitalPatientController : Controller
+    public class HospitalAppointmentController : Controller
     {
         private static readonly HttpClient client;
         private JavaScriptSerializer jss = new JavaScriptSerializer();
 
 
-        static HospitalPatientController()
+
+        static HospitalAppointmentController()
         {
             HttpClientHandler handler = new HttpClientHandler()
             {
@@ -29,7 +29,6 @@ namespace HospitalApplication.Controllers
             client = new HttpClient(handler);
             client.BaseAddress = new Uri("https://localhost:44325/api/");
         }
-
 
         /// <summary>
         /// Grabs the authentication cookie sent to this controller.
@@ -52,7 +51,7 @@ namespace HospitalApplication.Controllers
 
         // ----- [C] CREATE SECTION -----------------------------------------------------------------------------
 
-        // GET: HospitalPatient/New
+        // GET: HospitalAppointment/New
         [Authorize]
         public ActionResult New()
         {
@@ -60,31 +59,22 @@ namespace HospitalApplication.Controllers
         }
 
 
-        // POST: HospitalPatientData/Create
+        // POST: HospitalAppointment/Create
         [HttpPost]
         [Authorize]
-        public ActionResult Create(HospitalPatient hospitalPatient)
+        public ActionResult Create(HospitalAppointment hospitalAppointment)
         {
-            Debug.WriteLine("---- create controller----");
 
-            GetApplicationCookie();//get token credentials
+            string url = "HospitalAppointmentData/AddNewAppointment";
+         
+            string jsonpayload = jss.Serialize(hospitalAppointment);
 
-            //objective: add a new patient into our system using the API
-            //curl -H "Content-Type:application/json" -d @post.json https://localhost:44325/api/HospitalPatientdata/AddNewPatient 
-            string url = "HospitalPatientData/AddNewPatient";
-         
-            string jsonpayload = jss.Serialize(hospitalPatient);
-         
-            Debug.WriteLine("----------");
             Debug.WriteLine(jsonpayload);
-
 
             HttpContent content = new StringContent(jsonpayload);
             content.Headers.ContentType.MediaType = "application/json";
 
             HttpResponseMessage response = client.PostAsync(url, content).Result;
-
-            Debug.WriteLine("----------response " + response.StatusCode);
             if (response.IsSuccessStatusCode)
             {
                 return RedirectToAction("List");
@@ -96,77 +86,63 @@ namespace HospitalApplication.Controllers
 
         }
 
-
         // ----- [R] READ SECTION -----------------------------------------------------------------------------
-
-        // GET: HospitalPatient/List
+       
+        // Get HospitalAppointment/List
         public ActionResult List()
         {
+            Debug.WriteLine(" App Controller - List ");
             //objective: communuicate with HospitalPatient data api to retrieve a list of patients
-            //curl: https://localhost:44325/api/HospitalPatientData/ListHospitalPatients
+            //curl: https://localhost:44325/api/HospitalAppointmentData/ListHospitalAppointments
             //HttpClient client = new HttpClient(){ };
-            string url = "HospitalPatientData/ListHospitalPatients";
+            string url = "HospitalAppointmentData/ListHospitalAppointments";
             HttpResponseMessage response = client.GetAsync(url).Result;
 
-            Debug.WriteLine("status is " + response.StatusCode);
+            Debug.WriteLine("status is------------ " + response.StatusCode);
 
-            IEnumerable<HospitalPatientDto> hospitalPatients = response.Content.ReadAsAsync<IEnumerable<HospitalPatientDto>>().Result;
+            IEnumerable<HospitalAppointmentDto> hospitalAppointments = response.Content.ReadAsAsync<IEnumerable<HospitalAppointmentDto>>().Result;
 
-            return View(hospitalPatients);
+            return View(hospitalAppointments);
         }
 
 
-        // GET: HospitalPatient/Details/5
+        // GET: HospitalAppointment/Details/5
         public ActionResult Details(int id)
         {
-            Debug.WriteLine(" -------- in DETAILS function of P Controller ");
-            DetailsPatient ViewModel = new DetailsPatient();
+            Debug.WriteLine(" App Controller - Details ");
+            // objective : communicate with Appointment api to retrieve one appointment from given id
+            //curl:  https://localhost:44325/api/HospitalAppointmentData/
 
-            //objective: communicate with our donation data api to retrieve one donation
-            //curl https://localhost:44325/api/HospitalPatientData/ListHospitalPatients/findHospitalPatient/{id}
-
-            string url = "HospitalPatientData/FindPatient/" + id;
+            string url = "HospitalAppointmentData/FindAppointment/" + id;
             HttpResponseMessage response = client.GetAsync(url).Result;
 
-            HospitalPatientDto SelectedPatient = response.Content.ReadAsAsync<HospitalPatientDto>().Result;
+            HospitalAppointmentDto SelectedAppointment = response.Content.ReadAsAsync<HospitalAppointmentDto>().Result;
 
-            ViewModel.SelectedPatient = SelectedPatient;
-
-
-
-            // get all appointments of this patient
-
-            Debug.WriteLine(" -------- passing id to url  " + SelectedPatient.PatientID);
-            url = "HospitalPatientData/FindPatientAppointments/" + SelectedPatient.PatientID;
-            HttpResponseMessage patientAppointments = client.GetAsync(url).Result;
-
-            ViewModel.RelatedAppointments = patientAppointments.Content.ReadAsAsync<IEnumerable<HospitalAppointmentDto>>().Result;
-
-            return View(ViewModel);
+            return View(SelectedAppointment);
         }
+
 
         // ----- [U] UPDATE SECTION -----------------------------------------------------------------------------
 
-        // GET: HospitalPatientData/Edit/5
+        // GET:HospitalAppointment/Edit/5
         [Authorize]
         public ActionResult Edit(int id)
         {
-            string url = "HospitalPatientData/FindPatient/" + id;
+            string url = "HospitalAppointmentData/FindAppointment/" + id;
             HttpResponseMessage response = client.GetAsync(url).Result;
 
-            HospitalPatientDto SelectedPatient = response.Content.ReadAsAsync<HospitalPatientDto>().Result;
+            HospitalAppointmentDto SelectedAppointment = response.Content.ReadAsAsync<HospitalAppointmentDto>().Result;
 
-            return View(SelectedPatient);
-
+            return View(SelectedAppointment);
         }
 
-        // Post: HospitalPatient/Update/5
+        // Post: HospitalAppointment/Update/5
         [HttpPost]
-        public ActionResult Update(int id, HospitalPatient hospitalPatient)
+        public ActionResult Update(int id, HospitalAppointment hospitalAppointment)
         {
-            string url = "HospitalPatientData/UpdateHospitalPatient/" + id;
+            string url = "HospitalAppointmentData/UpdateHospitalAppointment/" + id;
             JavaScriptSerializer jss = new JavaScriptSerializer();
-            string jsonpayload = jss.Serialize(hospitalPatient);
+            string jsonpayload = jss.Serialize(hospitalAppointment);
 
             Debug.WriteLine(jsonpayload);
 
@@ -191,33 +167,30 @@ namespace HospitalApplication.Controllers
 
         // ----- [D] DELETE  SECTION -----------------------------------------------------------------------------
 
-        // GET: HospitalPatient/Delete/5
+        // GET: HospitalAppointment/Delete/5
         [Authorize]
         public ActionResult DeleteConfirm(int id)
         {
-            string url = "HospitalPatientData/FindPatient/" + id;
+            string url = "HospitalAppointment/FindAppointment/" + id;
             HttpResponseMessage response = client.GetAsync(url).Result;
-            HospitalPatientDto selectedPatient = response.Content.ReadAsAsync<HospitalPatientDto>().Result;
+            HospitalAppointmentDto selectedAppointment = response.Content.ReadAsAsync<HospitalAppointmentDto>().Result;
 
-            return View(selectedPatient);
+            return View(selectedAppointment);
         }
 
-       
-        // POST: HospitalPatient/Delete/5
+        // POST: HospitalAppointment/Delete/5
         [HttpPost]
         [Authorize]
         public ActionResult Delete(int id)
         {
-            Debug.WriteLine("----------IN _   delete function of Controller plus passed id " + id);
             //get token
             GetApplicationCookie();
+            string url = "HospitalAppointment/DeleteAppointment/" + id;
 
-            string url = "HospitalPatientData/DeleteHospitalPatient/" + id;
             HttpContent content = new StringContent("");
             content.Headers.ContentType.MediaType = "application/json";
             HttpResponseMessage response = client.PostAsync(url, content).Result;
 
-            Debug.WriteLine(" rwsponse is ---" + response.StatusCode);
             if (response.IsSuccessStatusCode)
             {
                 return RedirectToAction("List");
@@ -226,9 +199,7 @@ namespace HospitalApplication.Controllers
             {
                 return RedirectToAction("Error");
             }
-
         }
-
 
         public ActionResult Error()
         {

@@ -34,6 +34,7 @@ namespace HospitalApplication.Models
         public string DoctorName { get; set; }
         public string Description { get; set; }
         public string PatientID { get; set; }
+        public string PatientName { get; set; }
         public string UserID { get; set; }
     }
 }

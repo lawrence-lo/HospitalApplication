@@ -1,0 +1,20 @@
+﻿@model IEnumerable<HospitalApplication.Models.HospitalAppointmentDto>
+@{
+    ViewBag.Title = "List";
+}
+
+<div class="row">
+    <div class="col-sm-4 col-sm-offset-4">
+        <h2 class="text-center">List of Appointments</h2>
+        <div class="text-right"><a class="btn btn-default" href="/HospitalAppointment/New" role="button">New Appointment</a></div>
+        @foreach (var appointment in Model)
+        {
+            <div class="list-group text-center">
+                <a href="/HospitalAppointment/Details/@appointment.AppointmentID" class="list-group-item">
+                    <h4 class="list-group-item-heading">@appointment.PatientName</h4>
+                    <p class="list-group-item-text">@appointment.Description</p>
+                </a>
+            </div>
+        }
+    </div>
+</div>

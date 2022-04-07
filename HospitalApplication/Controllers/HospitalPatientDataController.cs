@@ -8,7 +8,9 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
+using System.Diagnostics;
 using HospitalApplication.Models;
+
 
 namespace HospitalApplication.Controllers
 {
@@ -83,22 +85,59 @@ namespace HospitalApplication.Controllers
 
 
         /// <summary>
+        /// Returns the full list of appointments related to this patient
+        /// </summary>
+        /// <returns>
+        /// HEADER: 200 (OK)
+        /// CONTENT: A full full list of appointments  in the system matching up to the patientID primary key
+        /// or
+        /// HEADER: 404 (NOT FOUND)
+        /// </returns>
+        /// <param name="id">The primary key of the Patient</param>
+        /// <example>
+        /// GET: api/HospitalPatientData/FindPatientAppointments/5
+        /// </example>
+        [HttpGet]
+        [ResponseType(typeof(HospitalAppointmentDto))]
+        public IHttpActionResult FindPatientAppointments(int id)
+        {
+            Debug.WriteLine("----------IN _   FindPatientAppointments plus passed id " + id);
+            List<HospitalAppointment> hospitalAppointments = db.HospitalAppointments.Where(ha => ha.PatientID == id).ToList();
+
+            Debug.WriteLine("COUNT-------" + hospitalAppointments.Count());
+            List<HospitalAppointmentDto> hospitalAppointmentDtos = new List<HospitalAppointmentDto>();
+
+            hospitalAppointments.ForEach(a => hospitalAppointmentDtos.Add(new HospitalAppointmentDto()
+            {
+                AppointmentID = a.AppointmentID,
+                DateCreated = a.DateCreated,
+                DoctorName = a.DoctorName,
+                Description = a.Description
+            }));
+
+            return Ok(hospitalAppointmentDtos);
+            
+        }
+
+
+        /// <summary>
         /// Updates a particular patient in the system with POST Data Input
         /// </summary>
         /// <param name="id">Represents the patientID Primary Key</param>
-        /// <param name="drug">JSON Form Data of a Patient including id of patient to be updated</param>
+        /// <param name="hospitalPatient">JSON Form Data of a Patient including id of patient to be updated</param>
         /// <returns>
         /// HEADER: 204 (Success, No Content Response) or
         /// HEADER: 400 (Not Found)
         /// </returns>
         /// <example>
         /// POST: PUT: api/HospitalPatientData/updatePatient/5
-        /// Drug Json Object
+        /// hospitalPatient Json Object
         /// </example>
 
         [Route("api/HospitalPatientData/UpdateHospitalPatient/{id}")]
         [ResponseType(typeof(void))]
         [HttpPost]
+        [Authorize]
         public IHttpActionResult UpdateHospitalPatient(int id, HospitalPatient hospitalPatient)
         {
             if (!ModelState.IsValid)
@@ -151,16 +190,19 @@ namespace HospitalApplication.Controllers
 
         [ResponseType(typeof(HospitalPatient))]
         [HttpPost]
+        [Authorize]
         public IHttpActionResult AddNewPatient(HospitalPatient hospitalPatient)
         {
+            Debug.WriteLine("----------IN _   add function of Controller ");
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-
+            Debug.WriteLine("---check data passed fro form " + hospitalPatient.PatientID + hospitalPatient.Name);
             db.HospitalPatients.Add(hospitalPatient);
             db.SaveChanges();
 
+            Debug.WriteLine("saved all giid wirth id " + hospitalPatient.PatientID);
             return CreatedAtRoute("DefaultApi", new { id = hospitalPatient.PatientID }, hospitalPatient);
         }
 
@@ -179,9 +221,15 @@ namespace HospitalApplication.Controllers
         /// </example>
       
         [ResponseType(typeof(HospitalPatient))]
+        [HttpPost]
+        [Authorize]
         public IHttpActionResult DeleteHospitalPatient(int id)
         {
+
+            Debug.WriteLine("----------IN _   DeleteHospitalPatient plus passed id " + id);
             HospitalPatient hospitalPatient = db.HospitalPatients.Find(id);
+            Debug.WriteLine("---------- result patientID " + hospitalPatient.PatientID);
+
             if (hospitalPatient == null)
             {
                 return NotFound();
@@ -190,6 +238,7 @@ namespace HospitalApplication.Controllers
             db.HospitalPatients.Remove(hospitalPatient);
             db.SaveChanges();
 
+            Debug.WriteLine("---------- ALl GOOD in delete ");
             return Ok(hospitalPatient);
         }
 
