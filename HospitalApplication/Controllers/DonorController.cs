@@ -98,14 +98,14 @@ namespace HospitalApplication.Controllers
         // GET: Donor/Edit/5
         public ActionResult Edit(int id)
         {
-            UpdateDonor ViewModel = new UpdateDonor();
+            //UpdateDonor ViewModel = new UpdateDonor();
 
             string url = "donordata/finddonor/" + id;
             HttpResponseMessage response = client.GetAsync(url).Result;
             DonorDto SelectedDonor = response.Content.ReadAsAsync<DonorDto>().Result;
-            ViewModel.SelectedDonor = SelectedDonor;
+            //ViewModel.SelectedDonor = SelectedDonor;
 
-            return View(ViewModel);
+            return View(SelectedDonor);
         }
 
         // POST: Donor/Update/5

@@ -31,7 +31,9 @@ namespace HospitalApplication.Controllers
                 DonationDate = d.DonationDate,
                 DonationAmount = d.DonationAmount,
                 DonorID=d.Donor.DonorID,
-                DonorName= d.Donor.DonorName
+                DonorName= d.Donor.DonorName,
+                DeptID=d.Department.DeptID,
+                DeptName=d.Department.DeptName
             }));
             return Ok(DonationDtos);
         }
@@ -109,7 +111,9 @@ namespace HospitalApplication.Controllers
                 DonationDate = Donation.DonationDate,
                 DonationAmount = Donation.DonationAmount,
                 DonorID = Donation.Donor.DonorID,
-                DonorName = Donation.Donor.DonorName
+                DonorName = Donation.Donor.DonorName,
+                DeptID = Donation.Department.DeptID,
+                DeptName = Donation.Department.DeptName
 
             };
             if (Donation == null)

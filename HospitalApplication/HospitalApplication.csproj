@@ -228,6 +228,10 @@
     <Compile Include="Migrations\202204060056558_hospitalPatientAppointmentTables.Designer.cs">
       <DependentUpon>202204060056558_hospitalPatientAppointmentTables.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202204071951122_pendingmigration.cs" />
+    <Compile Include="Migrations\202204071951122_pendingmigration.Designer.cs">
+      <DependentUpon>202204071951122_pendingmigration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\HospitalAppointment.cs" />
@@ -245,6 +249,7 @@
     <Compile Include="Models\ViewModels\DetailsDonor.cs" />
     <Compile Include="Models\ViewModels\DetailsPost.cs" />
     <Compile Include="Models\ViewModels\DetailsUser.cs" />
+    <Compile Include="Models\ViewModels\NewDonation.cs" />
     <Compile Include="Models\ViewModels\UpdateDepartment.cs" />
     <Compile Include="Models\ViewModels\UpdateDonation.cs" />
     <Compile Include="Models\ViewModels\UpdateDonor.cs" />
@@ -357,6 +362,7 @@
     </None>
     <Content Include="jsondata\donor.json" />
     <Content Include="jsondata\department.json" />
+    <Content Include="jsondata\donation.json" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -477,6 +483,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202204060056558_hospitalPatientAppointmentTables.resx">
       <DependentUpon>202204060056558_hospitalPatientAppointmentTables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202204071951122_pendingmigration.resx">
+      <DependentUpon>202204071951122_pendingmigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

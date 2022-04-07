@@ -1,5 +1,4 @@
-﻿@*@model IEnumerable<HospitalApplication.Models.DepartmentDto>*@
-@model IEnumerable<HospitalApplication.Models.DonorDto>
+﻿@model HospitalApplication.Models.ViewModels.NewDonation
 @{
     ViewBag.Title = "Create";
 }
@@ -12,9 +11,9 @@
             <div class="form-group">
                 <label class="col-sm-4 control-label" for="DonationDescription">Donor</label>
                 <div class="col-sm-8">
-                    <select name="DonorID">
+                    <select class="form-control" name="DonorID">
 
-                        @foreach (var donor in Model)
+                        @foreach (var donor in Model.DonorOptions)
                         {
                             <option class="form-control" value="@donor.DonorID">@donor.DonorName</option>
                         }
@@ -22,23 +21,16 @@
                 </div>
             </div>
 
-            @*<div class="form-group">
-                <label class="col-sm-4 control-label" for="DonationDescription">Donor</label>
+            <div class="form-group">
+                <label class="col-sm-4 control-label" for="DonationDescription">Department</label>
                 <div class="col-sm-8">
-                    <select name="DonorID">
+                    <select class="form-control" name="DeptID">
 
-                        @foreach (var department in Model)
+                        @foreach (var department in Model.DepartmentOptions)
                         {
                             <option class="form-control" value="@department.DeptID">@department.DeptName</option>
                         }
                     </select>
-                </div>
-            </div>*@
-
-            <div class="form-group">
-                <label class="col-sm-4 control-label" for="DonationDescription">Description</label>
-                <div class="col-sm-8">
-                    <textarea class="form-control" type="text" id="DonationDescription" name="DonationDescription" rows="5"></textarea>
                 </div>
             </div>
             <div class="form-group">
@@ -53,6 +45,13 @@
                     <input class="form-control" type="date" id="DonationDate" name="DonationDate" value="@System.DateTime.Now.ToString("yyyy-MM-dd")">
                 </div>
             </div>
+            <div class="form-group">
+                <label class="col-sm-4 control-label" for="DonationDescription">Description</label>
+                <div class="col-sm-8">
+                    <textarea class="form-control" type="text" id="DonationDescription" name="DonationDescription" rows="5"></textarea>
+                </div>
+            </div>
+
 
             <div class="form-group">
                 <div class="col-sm-offset-4 col-sm-8">

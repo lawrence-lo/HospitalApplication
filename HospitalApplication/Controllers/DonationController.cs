@@ -63,13 +63,24 @@ namespace HospitalApplication.Controllers
         // GET: Donation/New
         public ActionResult New()
         {
+            NewDonation ViewModel = new NewDonation();
+
             //information about all the donors in the system
             //GET api/donordata/listdonors
-            string url = "donordata/listdonors";
+            string url = "";
             HttpResponseMessage response = client.GetAsync(url).Result;
-            IEnumerable<DonorDto> donorOptions = response.Content.ReadAsAsync<IEnumerable<DonorDto>>().Result;
 
-            return View(donorOptions);
+            url = "donordata/listdonors/";
+            response = client.GetAsync(url).Result;
+            IEnumerable<DonorDto> DonorOptions = response.Content.ReadAsAsync<IEnumerable<DonorDto>>().Result;
+            ViewModel.DonorOptions = DonorOptions;
+
+            url = "departmentdata/listdepartments/";
+            response = client.GetAsync(url).Result;
+            IEnumerable<DepartmentDto> DepartmentOptions = response.Content.ReadAsAsync<IEnumerable<DepartmentDto>>().Result;
+            ViewModel.DepartmentOptions = DepartmentOptions;
+
+            return View(ViewModel);
         }
 
         // POST: Donation/Create

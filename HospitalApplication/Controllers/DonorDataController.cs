@@ -9,6 +9,8 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using HospitalApplication.Models;
+using System.Diagnostics;
+
 
 namespace HospitalApplication.Controllers
 {
@@ -20,7 +22,7 @@ namespace HospitalApplication.Controllers
         [HttpGet]
         [ResponseType(typeof(DonorDto))]
 
-        public IEnumerable<DonorDto> ListDonors()
+        public IHttpActionResult ListDonors()
         {
             List<Donor> Donors = db.Donors.ToList();
             List<DonorDto> DonorDtos = new List<DonorDto>();
@@ -33,7 +35,7 @@ namespace HospitalApplication.Controllers
                 DonorEmail = d.DonorEmail,
                 DonorPhone = d.DonorPhone
             }));
-            return DonorDtos;
+            return Ok(DonorDtos);
         }
 
         // GET: api/DonorData/FindDonor/5

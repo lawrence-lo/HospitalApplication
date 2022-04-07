@@ -12,18 +12,26 @@
                 <h2 class="list-group-item-heading text-center">Donation Details</h2>
                 <div class="list-group-item-text">
                     <div class="row">
-                        <div class="col-sm-4">Name</div>
-                        <div class="col-sm-8">@Model.SelectedDonation.DonationDescription</div>
+                        <div class="col-sm-4">Donor</div>
+                        <div class="col-sm-8">@Model.SelectedDonation.DonorName</div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-4">Email address</div>
+                        <div class="col-sm-4">Department</div>
+                        <div class="col-sm-8">@Model.SelectedDonation.DeptName</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">Amount</div>
                         <div class="col-sm-8">@Model.SelectedDonation.DonationAmount</div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-4">Address</div>
+                        <div class="col-sm-4">Date</div>
                         <div class="col-sm-8">@Model.SelectedDonation.DonationDate.ToString("yyyy-MM-dd")</div>
                     </div>
- 
+
+                    <div class="row">
+                        <div class="col-sm-4">Description</div>
+                        <div class="col-sm-8">@Model.SelectedDonation.DonationDescription</div>
+                    </div>
                 </div>
             </div>
         </div>

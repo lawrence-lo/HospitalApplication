@@ -11,9 +11,12 @@
         {
             <div class="list-group text-center">
                 <a href="/Donation/Details/@donation.DonationID" class="list-group-item">
-                    <h4 class="list-group-item-heading">@donation.DonationDescription</h4>
+                    @*<h4 class="list-group-item-heading">@donation.DonationDescription</h4>*@
+                    <h4 class="list-group-item-heading">@donation.DonorName</h4>
+                    <p class="list-group-item-text">@donation.DeptName</p>
                     <p class="list-group-item-text">@donation.DonationAmount</p>
                     <p class="list-group-item-text">@donation.DonationDate</p>
+
 
                 </a>
             </div>
