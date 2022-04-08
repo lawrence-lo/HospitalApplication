@@ -9,9 +9,9 @@
     <div class="col-md-6 col-md-offset-3">
         <div class="list-group">
             <div class="list-group-item">
-                <h2 class="list-group-item-heading text-center">Patient Details</h2>
+                <h2 class="list-group-item-heading text-center">Appointment Details</h2>
                 <div class="list-group-item-text">
-                   
+
                     <div class="row">
                         <div class="col-sm-4">ID</div>
                         <div class="col-sm-8">@Model.AppointmentID</div>
@@ -24,6 +24,15 @@
                         <div class="col-sm-4">Doctor Name</div>
                         <div class="col-sm-8">@Model.DoctorName</div>
                     </div>
+                    <div class="row">
+                        <div class="col-sm-4">Date Created</div>
+                        <div class="col-sm-8">@Model.DateCreated</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">Notes</div>
+                        <div class="col-sm-8">@Model.Description</div>
+                    </div>
+
 
                 </div>
             </div>

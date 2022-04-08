@@ -8,6 +8,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
+using System.Diagnostics;
 using HospitalApplication.Models;
 
 namespace HospitalApplication.Controllers
@@ -161,6 +162,7 @@ namespace HospitalApplication.Controllers
         [Authorize]
         public IHttpActionResult AddNewAppointment(HospitalAppointment hospitalAppointment)
         {
+            Debug.WriteLine("----------IN _   add function of ContrFindAppointmentoller ");
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);

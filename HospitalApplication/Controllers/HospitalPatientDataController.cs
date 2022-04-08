@@ -140,13 +140,16 @@ namespace HospitalApplication.Controllers
         [Authorize]
         public IHttpActionResult UpdateHospitalPatient(int id, HospitalPatient hospitalPatient)
         {
+            Debug.WriteLine("-------update data controller -----------");
             if (!ModelState.IsValid)
             {
+                Debug.WriteLine("-------bad request -----------");
                 return BadRequest(ModelState);
             }
 
             if (id != hospitalPatient.PatientID)
             {
+                Debug.WriteLine("-------id?-----------" + hospitalPatient.PatientID + "---" +id);
                 return BadRequest();
             }
 
@@ -198,6 +201,9 @@ namespace HospitalApplication.Controllers
             {
                 return BadRequest(ModelState);
             }
+
+            hospitalPatient.IsActive = true;
+
             Debug.WriteLine("---check data passed fro form " + hospitalPatient.PatientID + hospitalPatient.Name);
             db.HospitalPatients.Add(hospitalPatient);
             db.SaveChanges();

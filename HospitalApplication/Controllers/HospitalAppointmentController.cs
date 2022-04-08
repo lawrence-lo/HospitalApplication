@@ -55,7 +55,15 @@ namespace HospitalApplication.Controllers
         [Authorize]
         public ActionResult New()
         {
-            return View();
+            // information about all patients names in system
+            // get ap1/HospitalPatient/ListHospitalPatients
+
+            string url = "HospitalPatientData/ListHospitalPatients";
+            HttpResponseMessage response = client.GetAsync(url).Result;
+            Debug.WriteLine("=============" + response.Content);
+            IEnumerable<HospitalPatientDto> PatientOptions = response.Content.ReadAsAsync<IEnumerable<HospitalPatientDto>>().Result;
+
+            return View(PatientOptions);
         }
 
 
@@ -64,17 +72,27 @@ namespace HospitalApplication.Controllers
         [Authorize]
         public ActionResult Create(HospitalAppointment hospitalAppointment)
         {
+            GetApplicationCookie();//get token credentials
+
+            //objective: add a new Appointment into our system using the API
+            //curl -H "Content-Type:application/json" -d @post.json https://localhost:44325/api/HospitalAppointmentdata/AddNewAppointment 
 
             string url = "HospitalAppointmentData/AddNewAppointment";
          
             string jsonpayload = jss.Serialize(hospitalAppointment);
 
+            Debug.WriteLine("----------");
             Debug.WriteLine(jsonpayload);
 
             HttpContent content = new StringContent(jsonpayload);
             content.Headers.ContentType.MediaType = "application/json";
 
+
+            Debug.WriteLine(content);
             HttpResponseMessage response = client.PostAsync(url, content).Result;
+
+            Debug.WriteLine(response.StatusCode);
+
             if (response.IsSuccessStatusCode)
             {
                 return RedirectToAction("List");
@@ -171,10 +189,10 @@ namespace HospitalApplication.Controllers
         [Authorize]
         public ActionResult DeleteConfirm(int id)
         {
-            string url = "HospitalAppointment/FindAppointment/" + id;
+            string url = "HospitalAppointmentData/FindAppointment/" + id;
             HttpResponseMessage response = client.GetAsync(url).Result;
             HospitalAppointmentDto selectedAppointment = response.Content.ReadAsAsync<HospitalAppointmentDto>().Result;
-
+            Debug.WriteLine("---------delete --- confirm -----" + selectedAppointment.PatientID);
             return View(selectedAppointment);
         }
 
@@ -185,7 +203,7 @@ namespace HospitalApplication.Controllers
         {
             //get token
             GetApplicationCookie();
-            string url = "HospitalAppointment/DeleteAppointment/" + id;
+            string url = "HospitalAppointmentData/DeleteHospitalAppointment/" + id;
 
             HttpContent content = new StringContent("");
             content.Headers.ContentType.MediaType = "application/json";

@@ -14,9 +14,9 @@
                 <div class="col-sm-8">
                     <select name="PatientID">
 
-                        @foreach (var patient in Model)
+                        @foreach (var patients in Model)
                         {
-                            <option class="form-control" value="@patient.Name">@patient.Name</option>
+                            <option class="form-control" value="@patients.PatientID">@patients.Name</option>
                         }
                     </select>
                 </div>

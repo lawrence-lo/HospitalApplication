@@ -168,7 +168,7 @@ namespace HospitalApplication.Controllers
             JavaScriptSerializer jss = new JavaScriptSerializer();
             string jsonpayload = jss.Serialize(hospitalPatient);
 
-            Debug.WriteLine(jsonpayload);
+            Debug.WriteLine("-----"+ jsonpayload);
 
             HttpContent content = new StringContent(jsonpayload);
 
