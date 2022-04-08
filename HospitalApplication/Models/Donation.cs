@@ -20,10 +20,7 @@ namespace HospitalApplication.Models
         public int DonorID { get; set; }
         public virtual Donor Donor { get; set; }
 
-        //[ForeignKey("ApplicationUser")]
-        //public string UserID { get; set; }
-        //public virtual ApplicationUser ApplicationUser { get; set; }
-
+  
         [ForeignKey("Department")]
         public int DeptID { get; set; }
         public virtual Department Department { get; set; }
@@ -39,9 +36,7 @@ namespace HospitalApplication.Models
         
         public int DonorID { get; set; }
         public string DonorName { get; set; }
-        
-        //public string UserID { get; set; }
-        
+                
         public int DeptID { get; set; }
         public string DeptName { get; set; }
     }

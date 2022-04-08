@@ -36,6 +36,7 @@ namespace HospitalApplication.Controllers
         }
 
         // GET: Donor/Details/5
+        [Authorize(Roles="Admin")]
         public ActionResult Details(int id)
         {
             DetailsDonor ViewModel = new DetailsDonor();
@@ -65,6 +66,7 @@ namespace HospitalApplication.Controllers
         }
 
         // GET: Donor/New
+        [Authorize(Roles = "Admin")]
         public ActionResult New()
         {
             return View();
@@ -72,6 +74,7 @@ namespace HospitalApplication.Controllers
 
         // POST: Donor/Create
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public ActionResult Create(Donor donor)
         {
             //objective: add a new donor into our system using the API
@@ -96,6 +99,7 @@ namespace HospitalApplication.Controllers
         }
 
         // GET: Donor/Edit/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int id)
         {
             //UpdateDonor ViewModel = new UpdateDonor();
@@ -110,6 +114,7 @@ namespace HospitalApplication.Controllers
 
         // POST: Donor/Update/5
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public ActionResult Update(int id, Donor donor)
         {
             string url = "donordata/updatedonor"+id;
@@ -130,6 +135,7 @@ namespace HospitalApplication.Controllers
         }
 
         // GET: Donor/Delete/5
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteConfirm(int id)
         {
             string url = "donordata/finddonor" + id;
@@ -140,6 +146,7 @@ namespace HospitalApplication.Controllers
 
         // POST: Donor/Delete/5
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int id)
         {
             string url = "donordata/deletedonor" + id;
