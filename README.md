@@ -14,3 +14,4 @@ Delete features unless logged in).
 Below is a list of features that are to be incorporated into this project:
 - Role-based authorization
 - Client side and server side validation
+- Pagination for Donations and Donors
