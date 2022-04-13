@@ -206,10 +206,6 @@
     <Compile Include="Migrations\202204031618131_donor-danation.Designer.cs">
       <DependentUpon>202204031618131_donor-danation.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202204031807080_donation.cs" />
-    <Compile Include="Migrations\202204031807080_donation.Designer.cs">
-      <DependentUpon>202204031807080_donation.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\202204050135427_user.cs" />
     <Compile Include="Migrations\202204050135427_user.Designer.cs">
       <DependentUpon>202204050135427_user.cs</DependentUpon>
@@ -229,10 +225,6 @@
     <Compile Include="Migrations\202204060056558_hospitalPatientAppointmentTables.cs" />
     <Compile Include="Migrations\202204060056558_hospitalPatientAppointmentTables.Designer.cs">
       <DependentUpon>202204060056558_hospitalPatientAppointmentTables.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202204072242203_new.cs" />
-    <Compile Include="Migrations\202204072242203_new.Designer.cs">
-      <DependentUpon>202204072242203_new.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -480,9 +472,6 @@
     <EmbeddedResource Include="Migrations\202204031618131_donor-danation.resx">
       <DependentUpon>202204031618131_donor-danation.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202204031807080_donation.resx">
-      <DependentUpon>202204031807080_donation.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202204050135427_user.resx">
       <DependentUpon>202204050135427_user.cs</DependentUpon>
     </EmbeddedResource>
@@ -497,9 +486,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202204060056558_hospitalPatientAppointmentTables.resx">
       <DependentUpon>202204060056558_hospitalPatientAppointmentTables.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202204072242203_new.resx">
-      <DependentUpon>202204072242203_new.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

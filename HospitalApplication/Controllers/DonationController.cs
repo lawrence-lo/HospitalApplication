@@ -7,6 +7,7 @@ using System.Net.Http;
 using HospitalApplication.Models;
 using System.Web.Script.Serialization;
 using HospitalApplication.Models.ViewModels;
+using System.Diagnostics;
 
 namespace HospitalApplication.Controllers
 {
@@ -17,8 +18,31 @@ namespace HospitalApplication.Controllers
 
         static DonationController()
         {
-            client = new HttpClient();
+            HttpClientHandler handler = new HttpClientHandler()
+            {
+                AllowAutoRedirect = false,
+                //cookies are manually set in RequestHeader
+                UseCookies = false
+            };
+            client = new HttpClient(handler);
             client.BaseAddress = new Uri("https://localhost:44325/api/");
+        }
+        private void GetApplicationCookie()
+        {
+            string token = "";
+            //HTTP client is set up to be reused, otherwise it will exhaust server resources.
+            client.DefaultRequestHeaders.Remove("Cookie");
+            if (!User.Identity.IsAuthenticated) return;
+
+            HttpCookie cookie = System.Web.HttpContext.Current.Request.Cookies.Get(".AspNet.ApplicationCookie");
+            if (cookie != null) token = cookie.Value;
+
+            //collect token as it is submitted to the controller
+            //use it to pass along to the WebAPI.
+            Debug.WriteLine("Token Submitted is : " + token);
+            if (token != "") client.DefaultRequestHeaders.Add("Cookie", ".AspNet.ApplicationCookie=" + token);
+
+            return;
         }
 
         // GET: Donation/List
@@ -61,6 +85,7 @@ namespace HospitalApplication.Controllers
         }
 
         // GET: Donation/New
+        [Authorize]
         public ActionResult New()
         {
             NewDonation ViewModel = new NewDonation();
@@ -85,6 +110,7 @@ namespace HospitalApplication.Controllers
 
         // POST: Donation/Create
         [HttpPost]
+        [Authorize]
         public ActionResult Create(Donation donation)
         {
             //objective: add a new donation into our system using the API
@@ -109,6 +135,7 @@ namespace HospitalApplication.Controllers
         }
 
         // GET: Donation/Edit/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int id)
         {
             UpdateDonation ViewModel = new UpdateDonation();
@@ -134,6 +161,7 @@ namespace HospitalApplication.Controllers
 
         // POST: Donation/Update/5
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public ActionResult Update(int id, Donation donation)
         {
             string url = "donationdata/updatedonation" + id;
@@ -154,6 +182,7 @@ namespace HospitalApplication.Controllers
         }
 
         // GET: Donation/Delete/5
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteConfirm(int id)
         {
             string url = "donationdata/finddonation" + id;
@@ -164,6 +193,7 @@ namespace HospitalApplication.Controllers
 
         // POST: Donation/Delete/5
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int id)
         {
             string url = "donationdata/deletedonation" + id;
