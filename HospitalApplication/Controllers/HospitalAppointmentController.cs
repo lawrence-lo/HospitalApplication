@@ -171,7 +171,8 @@ namespace HospitalApplication.Controllers
             HttpResponseMessage response = client.PostAsync(url, content).Result;
 
             Debug.WriteLine(response.StatusCode);
-
+           
+     
             if (response.IsSuccessStatusCode)
             {
                 return RedirectToAction("List");
