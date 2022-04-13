@@ -11,8 +11,8 @@
         {
             <div class="list-group text-center">
                 <a href="/HospitalAppointment/Details/@appointment.AppointmentID" class="list-group-item">
-                    <h4 class="list-group-item-heading">@appointment.PatientName</h4>
-                    <p class="list-group-item-text">@appointment.Description</p>
+                    <h4 class="list-group-item-heading">Patient: @appointment.PatientName  Doctor: @appointment.DoctorName</h4>
+                    <p class="list-group-item-text">@appointment.Description Created By : @appointment.UserID</p>
                 </a>
             </div>
         }

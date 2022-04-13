@@ -10,6 +10,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using System.Diagnostics;
 using HospitalApplication.Models;
+using Microsoft.AspNet.Identity;
 
 namespace HospitalApplication.Controllers
 {
@@ -120,7 +121,11 @@ namespace HospitalApplication.Controllers
             }
 
             db.Entry(hospitalAppointment).State = EntityState.Modified;
-
+           
+            //leave userId & doctor name untouched
+            db.Entry(hospitalAppointment).Property(b => b.UserID).IsModified = false;
+            db.Entry(hospitalAppointment).Property(b => b.DoctorName).IsModified = false;
+            
             try
             {
                 db.SaveChanges();
@@ -167,6 +172,9 @@ namespace HospitalApplication.Controllers
             {
                 return BadRequest(ModelState);
             }
+
+            //attach the id
+            hospitalAppointment.UserID = User.Identity.GetUserId();
 
             db.HospitalAppointments.Add(hospitalAppointment);
             db.SaveChanges();

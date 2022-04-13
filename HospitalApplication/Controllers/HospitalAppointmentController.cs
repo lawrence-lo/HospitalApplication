@@ -161,7 +161,7 @@ namespace HospitalApplication.Controllers
             string url = "HospitalAppointmentData/UpdateHospitalAppointment/" + id;
             JavaScriptSerializer jss = new JavaScriptSerializer();
             string jsonpayload = jss.Serialize(hospitalAppointment);
-
+            Debug.WriteLine("-----------------");
             Debug.WriteLine(jsonpayload);
 
             HttpContent content = new StringContent(jsonpayload);
