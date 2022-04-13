@@ -9,8 +9,8 @@
         <form class="form-horizontal" action="/Donation/Create" method="POST">
 
             <div class="form-group">
-                <label class="col-sm-4 control-label" for="DonationDescription">Donor</label>
-                <div class="col-sm-8">
+                <label class="col-sm-3 control-label" for="DonationDescription">Donor</label>
+                <div class="col-sm-6">
                     <select class="form-control" name="DonorID">
 
                         @foreach (var donor in Model.DonorOptions)
@@ -18,12 +18,15 @@
                             <option class="form-control" value="@donor.DonorID">@donor.DonorName</option>
                         }
                     </select>
+
                 </div>
+                <a class="btn btn-primary col-sm-3" href="/Donor/New" role="button">Add a Donor</a>
+
             </div>
 
             <div class="form-group">
-                <label class="col-sm-4 control-label" for="DonationDescription">Department</label>
-                <div class="col-sm-8">
+                <label class="col-sm-3 control-label" for="DonationDescription">Department</label>
+                <div class="col-sm-6">
                     <select class="form-control" name="DeptID">
 
                         @foreach (var department in Model.DepartmentOptions)
@@ -34,27 +37,27 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-4 control-label" for="DonationAmount">Amount</label>
-                <div class="col-sm-8">
+                <label class="col-sm-3 control-label" for="DonationAmount">Amount</label>
+                <div class="col-sm-6">
                     <input class="form-control" type="number" id="DonationAmount" name="DonationAmount">
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-4 control-label" for="DonationDate">Date</label>
-                <div class="col-sm-8">
+                <label class="col-sm-3 control-label" for="DonationDate">Date</label>
+                <div class="col-sm-6">
                     <input class="form-control" type="date" id="DonationDate" name="DonationDate" value="@System.DateTime.Now.ToString("yyyy-MM-dd")">
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-4 control-label" for="DonationDescription">Description</label>
-                <div class="col-sm-8">
+                <label class="col-sm-3 control-label" for="DonationDescription">Description</label>
+                <div class="col-sm-6">
                     <textarea class="form-control" type="text" id="DonationDescription" name="DonationDescription" rows="5"></textarea>
                 </div>
             </div>
 
 
             <div class="form-group">
-                <div class="col-sm-offset-4 col-sm-8">
+                <div class="col-sm-offset-3 col-sm-6">
                     <button class="btn btn-default" type="submit">Add Donation</button>
                 </div>
             </div>
