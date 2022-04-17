@@ -29,10 +29,19 @@ namespace HospitalApplication.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+        /* Local Connection String */
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
         }
+
+        /* AWS Connection */
+        /*
+        public ApplicationDbContext()
+            : base(AWSConnector.GetRDSConnectionString())
+        {
+        }
+        */
 
         public DbSet<Post> Posts { get; set; }
         public DbSet<Donor> Donors { get; set; }
@@ -47,5 +56,5 @@ namespace HospitalApplication.Models
             return new ApplicationDbContext();
         }
 
-    }
+}
 }
