@@ -9,12 +9,12 @@ Delete features unless logged in).
 Please click [here](http://hospitalproject-env.eba-pgc5kyer.us-east-2.elasticbeanstalk.com/).
 
 ## Project Team Responsibilities
-| Member     | Responsibilities           | 
-|------------|----------------------------|
-| Lisle      | Patients, Appointments     |
-| Nayereh    | Donors, Donations          |
-| Aaron      | Departments, Jobs          |
-| Lawrence   | Users, Posts, Home         |
+| Member     | Responsibilities           | Extras                 |
+|------------|----------------------------|------------------------|
+| Lisle      | Patients, Appointments     |                        |
+| Nayereh    | Donors, Donations          |                        |
+| Aaron      | Departments, Jobs          |                        |
+| Lawrence   | Users, Posts               | Home, Deployment       |
 
 ## Future Development
 Below is a list of features that are to be incorporated into this project:
