@@ -5,9 +5,6 @@ Delete features unless logged in).
 ## Entity Relationship
 ![entity relationship diagram](https://github.com/lawrence-lo/HospitalApplication/blob/main/erd.png?raw=true)
 
-## Live Demo
-Please click [here](http://hospitalproject-env.eba-pgc5kyer.us-east-2.elasticbeanstalk.com/).
-
 ## Project Team Responsibilities
 | Member     | Responsibilities           | Extras                 |
 |------------|----------------------------|------------------------|
