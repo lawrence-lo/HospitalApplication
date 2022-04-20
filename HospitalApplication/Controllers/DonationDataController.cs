@@ -128,7 +128,8 @@ namespace HospitalApplication.Controllers
         // POST: api/DonationData/UpdateDonation/5
         [ResponseType(typeof(void))]
         [HttpPost]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
+
         public IHttpActionResult UpdateDonation(int id, Donation donation)
         {
             if (!ModelState.IsValid)
@@ -165,7 +166,8 @@ namespace HospitalApplication.Controllers
         // POST: api/DonationData/AddDonation
         [ResponseType(typeof(Donation))]
         [HttpPost]
-        //[Authorize]
+        [Authorize(Roles = "Admin")]
+
         public IHttpActionResult AddDonation(Donation donation)
         {
             if (!ModelState.IsValid)
@@ -182,7 +184,8 @@ namespace HospitalApplication.Controllers
         // POST: api/DonationData/DeleteDonation/5
         [ResponseType(typeof(Donation))]
         [HttpPost]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
+
         public IHttpActionResult DeleteDonation(int id)
         {
             Donation donation = db.Donations.Find(id);

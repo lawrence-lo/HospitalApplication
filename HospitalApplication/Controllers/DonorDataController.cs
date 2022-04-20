@@ -16,7 +16,9 @@ namespace HospitalApplication.Controllers
 {
     public class DonorDataController : ApiController
     {
+      
         private ApplicationDbContext db = new ApplicationDbContext();
+
 
         // GET: api/DonorData/ListDonors
         [HttpGet]
@@ -64,7 +66,8 @@ namespace HospitalApplication.Controllers
         // POST: api/DonorData/UpdateDonor/5
         [ResponseType(typeof(void))]
         [HttpPost]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
+
         public IHttpActionResult UpdateDonor(int id, Donor donor)
         {
             Debug.WriteLine("I have reached API");
@@ -104,7 +107,8 @@ namespace HospitalApplication.Controllers
         // POST: api/DonorData/AddDonor
         [ResponseType(typeof(Donor))]
         [HttpPost]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
+
         public IHttpActionResult AddDonor(Donor donor)
         {
             if (!ModelState.IsValid)
@@ -121,7 +125,8 @@ namespace HospitalApplication.Controllers
         // POST: api/DonorData/DeleteDonor/5
         [ResponseType(typeof(Donor))]
         [HttpPost]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
+
         public IHttpActionResult DeleteDonor(int id)
         {
             Donor donor = db.Donors.Find(id);

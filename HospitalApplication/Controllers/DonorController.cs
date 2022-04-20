@@ -18,26 +18,32 @@ namespace HospitalApplication.Controllers
 
         static DonorController()
         {
-            client = new HttpClient();
+            HttpClientHandler handler = new HttpClientHandler()
+            {
+                AllowAutoRedirect = false,
+                UseCookies = false
+            };
+
+            client = new HttpClient(handler);
             client.BaseAddress = new Uri("https://localhost:44325/api/");
         }
-        //private void GetApplicationCookie()
-        //{
-        //    string token = "";
-        //    //HTTP client is set up to be reused, otherwise it will exhaust server resources.
-        //    client.DefaultRequestHeaders.Remove("Cookie");
-        //    if (!User.Identity.IsAuthenticated) return;
+        private void GetApplicationCookie()
+        {
+            string token = "";
+            //HTTP client is set up to be reused, otherwise it will exhaust server resources.
+            client.DefaultRequestHeaders.Remove("Cookie");
+            if (!User.Identity.IsAuthenticated) return;
 
-        //    HttpCookie cookie = System.Web.HttpContext.Current.Request.Cookies.Get(".AspNet.ApplicationCookie");
-        //    if (cookie != null) token = cookie.Value;
+            HttpCookie cookie = System.Web.HttpContext.Current.Request.Cookies.Get(".AspNet.ApplicationCookie");
+            if (cookie != null) token = cookie.Value;
 
-        //    //collect token as it is submitted to the controller
-        //    //use it to pass along to the WebAPI.
-        //    Debug.WriteLine("Token Submitted is : " + token);
-        //    if (token != "") client.DefaultRequestHeaders.Add("Cookie", ".AspNet.ApplicationCookie=" + token);
+            //collect token as it is submitted to the controller
+            //use it to pass along to the WebAPI.
+            Debug.WriteLine("Token Submitted is : " + token);
+            if (token != "") client.DefaultRequestHeaders.Add("Cookie", ".AspNet.ApplicationCookie=" + token);
 
-        //    return;
-        //}
+            return;
+        }
         // GET: Donor/List
         public ActionResult List()
         {
@@ -53,7 +59,6 @@ namespace HospitalApplication.Controllers
         }
 
         // GET: Donor/Details/5
-        //[Authorize(Roles="Admin")]
         public ActionResult Details(int id)
         {
             DetailsDonor ViewModel = new DetailsDonor();
@@ -83,7 +88,9 @@ namespace HospitalApplication.Controllers
         }
 
         // GET: Donor/New
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
+        //[Authorize]
+
         public ActionResult New()
         {
             return View();
@@ -91,12 +98,13 @@ namespace HospitalApplication.Controllers
 
         // POST: Donor/Create
         [HttpPost]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
+
         public ActionResult Create(Donor donor)
         {
             //objective: add a new donor into our system using the API
             //curl -H "Content-Type:application/json" -d @donor.json https://localhost:44325/api/donordata/adddonor
-            //GetApplicationCookie();
+            GetApplicationCookie();
             Debug.WriteLine("the json payload is :");
 
             string url = "donordata/adddonor";
@@ -122,7 +130,8 @@ namespace HospitalApplication.Controllers
         }
 
         // GET: Donor/Edit/5
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
+
         public ActionResult Edit(int id)
         {
             UpdateDonor ViewModel = new UpdateDonor();
@@ -137,12 +146,11 @@ namespace HospitalApplication.Controllers
 
         // POST: Donor/Update/5
         [HttpPost]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public ActionResult Update(int id, Donor donor)
         {
-            //GetApplicationCookie();
+            GetApplicationCookie();
             string url = "donordata/updatedonor/"+id;
-            // POST: api/DonorData/UpdateDonor/5
 
             string jsonpayload = jss.Serialize(donor);
 
@@ -163,7 +171,8 @@ namespace HospitalApplication.Controllers
         }
 
         // GET: Donor/Delete/5
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
+
         public ActionResult DeleteConfirm(int id)
         {
             string url = "donordata/finddonor/" + id;
@@ -174,9 +183,11 @@ namespace HospitalApplication.Controllers
 
         // POST: Donor/Delete/5
         [HttpPost]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
+
         public ActionResult Delete(int id)
         {
+            GetApplicationCookie();
             string url = "donordata/deletedonor/" + id;
             HttpContent content = new StringContent("");
             content.Headers.ContentType.MediaType = "application/json";
